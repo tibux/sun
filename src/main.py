@@ -22,3 +22,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
+import pynotify
+
+
+class Notify(object):
+
+    def __init__(self):
+        pynotify.uninit()
+        pynotify.init("sun")
+        self.n = pynotify.Notification("sun", "test",
+                                       "/home/dslackw/sun/icon/sun.png")
+
+    def show(self):
+        self.n.show()
+
+Notify().show()
