@@ -25,7 +25,6 @@
 import os
 import re
 import urllib2
-
 from __metadata__ import (
     arch,
     conf_path,
@@ -35,11 +34,17 @@ from __metadata__ import (
 )
 
 
+def read_file(registry):
+    """ Return reading file """
+    with open(registry, "r") as file_txt:
+        read_file = file_txt.read()
+        file_txt.close()
+        return read_file
+
+
 def slack_ver():
     """ Open file and read Slackware version """
-    with open("/etc/slackware-version", "r") as f:
-        sv = f.read()
-        f.close()
+    sv = read_file("/etc/slackware-version")
     return (".".join(re.findall(r"\d+", sv)))
 
 
@@ -53,16 +58,10 @@ def read_config(config):
 
 def mirror():
     """ Grab Slackware ChangeLog.txt mirror """
-    if os.path.isfile("{0}{1}".format(etc_slackpkg, "mirrors")):
-        f = open("{0}{1}".format(etc_slackpkg, "mirrors"), 'r')
-        slackpkg_mirrors = f.read()
-        f.close()
-        slackpkg_mirror = read_config(slackpkg_mirrors)
-    if os.path.isfile("{0}{1}".format(conf_path, "mirrors")):
-        f = open("{0}{1}".format(conf_path, "mirrors"), 'r')
-        slackware_mirrors = f.read()
-        f.close()
-        slackware_mirror = read_config(slackware_mirrors)
+    slackpkg_mirror = read_config(read_file("{0}{1}".format(etc_slackpkg,
+                                                            "mirrors")))
+    slackware_mirror = read_config(read_file("{0}{1}".format(conf_path,
+                                                             "mirrors")))
     if slackpkg_mirror and "current" in slackpkg_mirror:
         return "{0}slackware{1}-current/{2}".format(slackware_mirror, arch,
                                                     changelog_txt)
@@ -78,3 +77,32 @@ def file_size():
     server = int(meta.getheaders("Content-Length")[0])
     local = os.path.getsize("{0}{1}".format(var_lib_slackpkg, changelog_txt))
     return server, local
+
+
+def config():
+    """ Reaturn sun configuration values """
+    conf_args = {
+        "INTERVAL": 60,
+        "STANDBY": 3
+    }
+    config_file = read_file("{0}{1}".format(conf_path, "sun.conf"))
+    for line in config_file.splitlines():
+        line = line.lstrip()
+        if line and not line.startswith('#'):
+            conf_args[line.split('=')[0]] = line.split('=')[1]
+    return conf_args
+
+
+def package_updates():
+    """ Return number of updated packages """
+    f = urllib2.urlopen(mirror())
+    r = f.read()
+    count = 0
+    slackpkg_last_updates = read_file("{0}{1}".format(
+        var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
+    for line in r.splitlines():
+        if line.endswith("Upgraded.") or line.endswith("Rebuilt."):
+            count += 1
+        if slackpkg_last_updates == line.strip():
+            break
+    return count
