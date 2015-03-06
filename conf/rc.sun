@@ -1,0 +1,42 @@
+#!/bin/sh
+# Start/stop/restart Slackware Uupdate Notifier.
+
+PIDFILE=/var/run/sun.pid
+
+# Start sun:
+sun_start() {
+  if [ -x /usr/bin/sun ]; then
+    echo "Starting sun daemon:  /usr/bin/sun"
+    /usr/bin/sun --pidfile $PIDFILE &
+  fi
+}
+
+# Stop sun:
+sun_stop() {
+  if [ -r /var/run/sun.pid ]; then
+    kill $(cat /var/run/sun.pid)
+  else
+    killall sun
+  fi
+}
+
+# Restart sun:
+sun_restart() {
+  sun_stop
+  sleep 1
+  sun_start
+}
+
+case "$1" in
+'start')
+  sun_start
+  ;;
+'stop')
+  sun_stop
+  ;;
+'restart')
+  sun_restart
+  ;;
+*)
+  echo "usage $0 start|stop|restart"
+esac
