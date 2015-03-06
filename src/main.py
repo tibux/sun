@@ -25,6 +25,8 @@
 
 import pynotify
 
+from utils import file_size
+
 
 class Notify(object):
 
@@ -35,6 +37,9 @@ class Notify(object):
                                        "/home/dslackw/sun/icon/sun.png")
 
     def show(self):
-        self.n.show()
+        server, local = file_size()
+        if server != local:
+            self.n.close()    # close daemon
+            self.n.show()     # run daemon
 
 Notify().show()
