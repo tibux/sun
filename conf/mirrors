@@ -11,4 +11,6 @@
 # want to leave an ftp session open to ftp://ftp.slackware.com and less the 
 # ChangeLog every 5 minutes. :)
 #
+# You may not have to be changed here.
+#
 http://ftp.osuosl.org/pub/slackware/
