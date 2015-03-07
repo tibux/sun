@@ -51,7 +51,7 @@ Usage
 
     Also you can add sun in your windows manager session startup.
     As for xfce:
-    Settings --> Settings Manager --> Session and Startup --> Application Autostart --> +Add
+    Settings Manager --> Session and Startup --> Application Autostart --> +Add
     
     Name: sun
     Description: Slackware Update Notifier
