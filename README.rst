@@ -17,6 +17,8 @@
 .. image:: https://img.shields.io/github/issues/dslackw/sun.svg
     :target: https://github.com/dslackw/sun/issues
 
+Development Status
+==================
 
 About
 -----
