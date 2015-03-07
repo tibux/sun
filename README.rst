@@ -1,5 +1,7 @@
 .. image:: https://img.shields.io/github/release/dslackw/sun.svg
     :target: https://github.com/dslackw/sun/releases
+.. image:: https://travis-ci.org/dslackw/sun.svg?branch=master
+    :target: https://travis-ci.org/dslackw/sun
 .. image:: https://landscape.io/github/dslackw/sun/master/landscape.png
     :target: https://landscape.io/github/dslackw/sun/master
 .. image:: https://img.shields.io/codacy/6464ba0bd1e342e28388c71a34b3a5e8.svg
