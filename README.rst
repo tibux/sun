@@ -38,6 +38,8 @@ Installing
 Usage
 -----
 
+.. code-block:: bash
+
     $ sun start
     Starting sun daemon:  /usr/bin/sun_daemon
 
