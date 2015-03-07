@@ -62,5 +62,5 @@ Screenshot
 ---------
 
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/sun_screenshot.png
-    :target:: https://github.com/dslackw/sun
+    :target: https://github.com/dslackw/sun
  
