@@ -18,9 +18,40 @@
     :target: https://github.com/dslackw/sun/issues
 
 
+About
+-----
+
 Slackware Update Notifier is a tray notification applet for informing about
 package updates in Slackware.
 
-
 .. image:: https://raw.githubusercontent.com/dslackw/sun/master/icon/sun.png
     :target: https://github.com/dslackw/sun
+
+
+Installing
+----------
+
+.. code-block:: bash
+
+    $ pip install sun
+
+Usage
+-----
+
+    $ sun start
+    Starting sun daemon:  /usr/bin/sun_daemon
+
+    $ sun stop
+    Stoping sun daemon:  /usr/bin/sun_daemon
+
+    $ sun status
+    sun is not running
+
+    Also you can add sun in your windows manager session startup.
+    As for xfce:
+    Settings --> Settings Manager --> Session and Startup --> Application Autostart --> +Add
+    
+    Name: sun
+    Description: Slackware Update Notifier
+    Command: /usr/bin/sun start
+    [Ok]
