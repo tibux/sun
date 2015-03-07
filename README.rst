@@ -57,3 +57,10 @@ Usage
     Description: Slackware Update Notifier
     Command: /usr/bin/sun start
     [Ok]
+
+Screenshot
+---------
+
+.. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/sun_screenshot.png
+    :target:: https://github.com/dslackw/sun
+ 
