@@ -28,8 +28,8 @@ import pynotify
 
 
 from utils import (
-    file_size,
     config,
+    file_size,
     package_updates
 )
 from __metadata__ import (
@@ -43,9 +43,9 @@ class Notify(object):
     def __init__(self):
         pynotify.uninit()
         pynotify.init("sun")
-        self.summary = "{0}Software Updates".format(" " * 10)
-        self.message = "{0} software updates are available !\n".format(
-            package_updates())
+        self.summary = "{0}Software Updates".format(" " * 14)
+        self.message = "{0}{1} software updates are available !\n".format(
+            " " * 3, package_updates())
         self.icon = "{0}{1}.png".format(icon_path, __all__)
         self.n = pynotify.Notification(self.summary, self.message, self.icon)
         self.n.set_timeout(60000 * int(config()['STANDBY']))
@@ -54,8 +54,7 @@ class Notify(object):
         server, local = file_size()
         if server != local:
             self.n.close()    # close daemon
-            self.n.update(self.summary, self.message, self.icon)
-            self.n.show()     # run daemon
+            self.n.show()     # start daemon
 
 
 def main():

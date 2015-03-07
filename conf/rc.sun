@@ -1,22 +1,23 @@
 #!/bin/sh
-# Start/stop/restart Slackware Uupdate Notifier.
+# Start/stop/restart Slackware Update Notifier.
 
-PIDFILE=/var/run/sun.pid
+PIDFILE=/var/run/sun_daemon.pid
 
 # Start sun:
 sun_start() {
-  if [ -x /usr/bin/sun ]; then
-    echo "Starting sun daemon:  /usr/bin/sun"
-    /usr/bin/sun --pidfile $PIDFILE &
+  if [ -x /usr/bin/sun_daemon ]; then
+    echo "Starting sun daemon:  /usr/bin/sun_daemon"
+    /usr/bin/sun_daemon --pidfile $PIDFILE &
   fi
 }
 
 # Stop sun:
 sun_stop() {
-  if [ -r /var/run/sun.pid ]; then
-    kill $(cat /var/run/sun.pid)
+  echo "Stoping sun daemon:  /usr/bin/sun_daemon"
+  if [ -r /var/run/sun_daemon.pid ]; then
+    kill $(cat /var/run/sun_daemon.pid)
   else
-    killall sun
+    killall sun_daemon
   fi
 }
 
