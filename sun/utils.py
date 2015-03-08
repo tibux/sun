@@ -34,6 +34,11 @@ from __metadata__ import (
 )
 
 
+def urlopen(link):
+    """ Return urllib2 urlopen """
+    return urllib2.urlopen(link)
+
+
 def read_file(registry):
     """ Return reading file """
     with open(registry, "r") as file_txt:
@@ -70,13 +75,22 @@ def mirror():
                                                 slack_ver(), changelog_txt)
 
 
-def file_size():
-    """ Get ChangeLog.txt file size """
-    tar = urllib2.urlopen(mirror())
+def fetch():
+    """ Get ChangeLog.txt file size and count upgraded packages"""
+    tar = urlopen(mirror())
+    r = tar.read()
     meta = tar.info()
     server = int(meta.getheaders("Content-Length")[0])
     local = os.path.getsize("{0}{1}".format(var_lib_slackpkg, changelog_txt))
-    return server, local
+    count = 0
+    slackpkg_last_updates = read_file("{0}{1}".format(
+        var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
+    for line in r.splitlines():
+        if line.endswith("Upgraded.") or line.endswith("Rebuilt."):
+            count += 1
+        if slackpkg_last_updates == line.strip():
+            break
+    return server, local, count
 
 
 def config():
@@ -91,18 +105,3 @@ def config():
         if line and not line.startswith('#'):
             conf_args[line.split('=')[0]] = line.split('=')[1]
     return conf_args
-
-
-def package_updates():
-    """ Return number of updated packages """
-    f = urllib2.urlopen(mirror())
-    r = f.read()
-    count = 0
-    slackpkg_last_updates = read_file("{0}{1}".format(
-        var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
-    for line in r.splitlines():
-        if line.endswith("Upgraded.") or line.endswith("Rebuilt."):
-            count += 1
-        if slackpkg_last_updates == line.strip():
-            break
-    return count
