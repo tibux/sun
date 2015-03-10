@@ -38,7 +38,7 @@ if getpass.getuser() == "root":
     time.sleep(2)
 
 
-def arguments():
+def init():
     if len(args) == 1:
         if args[0] == "start":
             subprocess.call("{0} {1}".format(cmd, "start"), shell=True)
@@ -58,4 +58,4 @@ def arguments():
     else:
         print("Usage: sun start|stop|restart|status")
 
-arguments()
+init()
