@@ -35,6 +35,8 @@ Installing
 
 .. code-block:: bash
 
+    Use SlackBuild script or:
+
     $ pip install sun
 
 Usage
@@ -60,6 +62,22 @@ Usage
     Command: /usr/bin/sun start
     [Ok]
 
+
+Configuration files
+-------------------
+
+.. code-block:: bash
+
+    /etc/sun/sun.conf
+        General configuration of sun
+
+    /etc/sun/mirrors
+        List of Slackware ChangeLog.txt Mirrors
+
+    /etc/rc.d/rc.sun
+        Runtime configuration file
+
+    
 Screenshot
 ---------
 
