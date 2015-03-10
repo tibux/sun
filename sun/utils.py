@@ -36,7 +36,10 @@ from __metadata__ import (
 
 def urlopen(link):
     """ Return urllib2 urlopen """
-    return urllib2.urlopen(link)
+    try:
+        return urllib2.urlopen(link)
+    except urllib2.URLError:
+        pass
 
 
 def read_file(registry):

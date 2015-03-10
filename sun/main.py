@@ -23,10 +23,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import time
+import urllib2
 import pynotify
 from utils import (
     config,
     fetch,
+    mirror
 )
 from __metadata__ import (
     __all__,
@@ -56,8 +58,14 @@ class Notify(object):
 def main():
 
     while True:
-        Notify().show()
-        time.sleep(60 * int(config()['INTERVAL']))
+        connection = True
+        try:
+            urllib2.urlopen(mirror())
+        except urllib2.URLError:
+            connection = False
+        if connection:
+            Notify().show()
+            time.sleep(60 * int(config()['INTERVAL']))
 
 if __name__ == "__main__":
     main()
