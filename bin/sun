@@ -1,25 +1,54 @@
-#!/bin/sh
-# Start/stop/restart Slackware Update Notifier.
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
-SERVICE=sun_daemon
+# sun is a path of sun.
 
-case "$1" in
-'start')
-  /etc/rc.d/rc.sun start
-  ;;
-'stop')
-  /etc/rc.d/rc.sun stop
-  ;;
-'restart')
-  /etc/rc.d/rc.sun restart
-  ;;
-'status')
-  if [ -z "$(ps ax | grep -v grep | grep $SERVICE)" ]; then
-     echo "sun is not running"
-  else
-     echo "sun is running"
-  fi
-  ;;
-*)
-  echo "usage $0 start|stop|restart|status"
-esac
+# Copyright 2015 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
+# All rights reserved.
+
+# sun is a tray notification applet for informing about
+# package updates in Slackware.
+
+# https://github.com/dslackw/sun
+
+# sun is free software: you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+import sys
+import commands
+import subprocess
+
+args = sys.argv
+args.pop(0)
+
+cmd = "/etc/rc.d/rc.sun"
+
+
+def arguments():
+    if len(args) == 1:
+        if args[0] == "start":
+            subprocess.call("{0} {1}".format(cmd, "start"), shell=True)
+        elif args[0] == "stop":
+            subprocess.call("{0} {1}".format(cmd, "stop"), shell=True)
+        elif args[0] == "restart":
+            subprocess.call("{0} {1}".format(cmd, "restart"), shell=True)
+        elif args[0] == "status":
+            out = commands.getoutput("ps -A")
+            if "sun_daemon" in out:
+                print("sun is running ...")
+            else:
+                print("sun not running")
+        else:
+            print("Usage: sun start|stop|restart|status")
+    else:
+        print("Usage: sun start|stop|restart|status")
+
+arguments()

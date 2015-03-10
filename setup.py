@@ -45,7 +45,7 @@ from sun.__metadata__ import (
 setup(
     name=__all__,
     packages=["sun"],
-    scripts=["bin/sun_daemon"],
+    scripts=["bin/sun_daemon", "bin/sun"],
     version=__version__,
     description="Tray notification applet for informing about package updates "
                 "in Slackware",
@@ -74,9 +74,6 @@ if "install" in sys.argv:
         if not os.path.exists(d):
             os.makedirs(d)
 
-    print("Install sun --> {0}".format(bin_path))
-    shutil.copy2("bin/{0}".format(__all__), bin_path)
-    os.chmod(bin_path + __all__, 0755)
     print("Install sun.conf --> {0}".format(conf_path))
     shutil.copy2("conf/{0}.conf".format(__all__), conf_path)
     print("Install mirrors --> {0}".format(conf_path))
