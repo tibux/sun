@@ -23,6 +23,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import sys
+import getpass
 import commands
 import subprocess
 
@@ -30,6 +31,9 @@ args = sys.argv
 args.pop(0)
 
 cmd = "/etc/rc.d/rc.sun"
+
+if getpass.getuser() == "root":
+    print("\nsun: Message: running as root ...\n")
 
 
 def arguments():
@@ -48,6 +52,7 @@ def arguments():
                 print("sun not running")
         else:
             print("Usage: sun start|stop|restart|status")
+
     else:
         print("Usage: sun start|stop|restart|status")
 
