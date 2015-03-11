@@ -41,7 +41,7 @@ class Notify(object):
     def __init__(self):
         pynotify.uninit()
         pynotify.init("sun")
-        self.server, self.local, self.upgraded = fetch()
+        self.server, self.local, self.upgraded = fetch()[:3]
         self.summary = "{0}Software Updates".format(" " * 14)
         self.message = "{0}{1} software updates are available !\n".format(
             " " * 3, self.upgraded)
@@ -51,7 +51,6 @@ class Notify(object):
 
     def show(self):
         if self.server != self.local:
-            self.n.close()    # close daemon
             self.n.show()     # start daemon
 
 

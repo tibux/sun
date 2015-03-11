@@ -30,19 +30,18 @@ import subprocess
 from sun.utils import fetch
 from sun.__metadata__ import __version__
 
-args = sys.argv
-args.pop(0)
 
-cmd = "/etc/rc.d/rc.sun"
-
-if getpass.getuser() == "root":
-    print("sun: Message: running as root ...")
-    time.sleep(2)
+def su():
+    """ display message when sun execute as root """
+    if getpass.getuser() == "root":
+        print("sun: Message: running as root ...")
+        time.sleep(2)
 
 
 def usage():
+    """ sun arguments """
     args = [
-        "Version: {0}".format(__version__),
+        "Slackware Update Notifier - Version: {0}\n".format(__version__),
         "Usage: sun [OPTION]\n",
         "Optional  arguments:",
         "help      display this help and exit",
@@ -56,7 +55,31 @@ def usage():
         print opt
 
 
-def init():
+def check():
+    """ check and display upgraded packages """
+    upgraded, packages = fetch()[2:]
+    if upgraded > 0:
+        print("{0} software updates are available !".format(upgraded))
+        for pkg in packages:
+            print pkg
+    else:
+        print("No news is good news !")
+
+
+def status():
+    """ display sun daemon status """
+    out = commands.getoutput("ps -A")
+    if "sun_daemon" in out:
+        print("sun is running ...")
+    else:
+        print("sun not running")
+
+
+def init(args=sys.argv):
+    """ Initialization , all begin from here """
+    su()
+    args.pop(0)
+    cmd = "/etc/rc.d/rc.sun"
     if len(args) == 1:
         if args[0] == "start":
             subprocess.call("{0} {1}".format(cmd, "start"), shell=True)
@@ -65,17 +88,9 @@ def init():
         elif args[0] == "restart":
             subprocess.call("{0} {1}".format(cmd, "restart"), shell=True)
         elif args[0] == "check":
-            updates = fetch()[2]
-            if updates > 0:
-                print("{0} software updates are available !".format(updates))
-            else:
-                print("No news is good news !")
+            check()
         elif args[0] == "status":
-            out = commands.getoutput("ps -A")
-            if "sun_daemon" in out:
-                print("sun is running ...")
-            else:
-                print("sun not running")
+            status()
         elif args[0] == "help":
             usage()
         else:

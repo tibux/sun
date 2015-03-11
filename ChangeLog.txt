@@ -1,3 +1,11 @@
+11-03-2015
+Version 1.0.1
+
+[Updated] - Update options.
+
+[Feature] - Added check software updates.
+		  - Added display upgraded or rebuilt packages.
+
 04-03-2015
 Version 1.0.0
 

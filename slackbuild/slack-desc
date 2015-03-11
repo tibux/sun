@@ -9,10 +9,10 @@
 sun: sun (Slackware Update Notifier)
 sun:
 sun: Slackware Update Notifier is a tray notification applet for informing
-sun: about package updates in Slackware.
+sun: about package updates in Slackware and CLI tool for monitoring 
+sun: upgraded packages.
 sun:
 sun: Homepage: https://github.com/dslackw/sun
-sun:
 sun:
 sun:
 sun:

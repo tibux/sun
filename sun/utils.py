@@ -88,12 +88,14 @@ def fetch():
     count = 0
     slackpkg_last_updates = read_file("{0}{1}".format(
         var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
+    packages = []
     for line in r.splitlines():
         if line.endswith("Upgraded.") or line.endswith("Rebuilt."):
+            packages.append(line.split("/")[-1])
             count += 1
         if slackpkg_last_updates == line.strip():
             break
-    return server, local, count
+    return [server, local, count, packages]
 
 
 def config():

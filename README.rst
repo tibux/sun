@@ -17,16 +17,23 @@
 .. image:: https://img.shields.io/github/issues/dslackw/sun.svg
     :target: https://github.com/dslackw/sun/issues
 
+.. contents:: Table of Contents:
+
 About
 -----
 
 Slackware Update Notifier is a tray notification applet for informing about
-package updates in Slackware.
+package updates in Slackware and CLI tool for monitoring upgraded packages.
 
 .. image:: https://raw.githubusercontent.com/dslackw/sun/master/icon/sun.png
     :target: https://github.com/dslackw/sun
 
+How works
+---------
+In fact comparing the two ChangeLog.txt files to a server and a local by countng how 
+many packages have rebuilt or upgraded.
 
+ 
 Installing
 ----------
 
@@ -34,12 +41,41 @@ Installing
 
     Use SlackBuild script or:
 
-    $ pip install sun
+    $ pip install sun --upgrade
 
 Usage
 -----
 
 .. code-block:: bash
+
+    Add sun in your windows manager session startup.
+    
+    As for xfce:
+    Settings Manager --> Session and Startup --> Application Autostart --> +Add
+    
+    Name: sun
+    Description: Slackware Update Notifier
+    Command: /usr/bin/sun start
+    [Ok]
+
+
+CLI
+---
+
+.. code-block:: bash
+
+    $ sun help
+    Slackware Update Notifier - Version: 1.0.1
+
+    Usage: sun [OPTION]
+
+    Optional  arguments:
+    help      display this help and exit
+    start     start sun daemon
+    stop      stop sun daemon
+    restart   restart sun daemon
+    check     check for software updates
+    status    sun daemon status
 
     $ sun start
     Starting sun daemon:  /usr/bin/sun_daemon
@@ -49,15 +85,12 @@ Usage
 
     $ sun status
     sun is not running
-
-    Also you can add sun in your windows manager session startup.
-    As for xfce:
-    Settings Manager --> Session and Startup --> Application Autostart --> +Add
     
-    Name: sun
-    Description: Slackware Update Notifier
-    Command: /usr/bin/sun start
-    [Ok]
+    $ sun check
+    3 software updates are available !
+    samba-4.1.17-x86_64-1_slack14.1.txz:  Upgraded.
+    mozilla-firefox-31.5.0esr-x86_64-1_slack14.1.txz:  Upgraded.
+    mozilla-thunderbird-31.5.0-x86_64-1_slack14.1.txz:  Upgraded.
 
 
 Configuration files
