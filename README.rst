@@ -28,7 +28,12 @@ package updates in Slackware.
 .. image:: https://raw.githubusercontent.com/dslackw/sun/master/icon/sun.png
     :target: https://github.com/dslackw/sun
 
+How works
+---------
+In fact comparing the two ChangeLog.txt files to a server and a local by countng how 
+many packages have rebuilt or upgraded.
 
+ 
 Installing
 ----------
 
@@ -92,12 +97,6 @@ Configuration files
         Runtime configuration file
 
     
-How works
----------
-In fact comparing the two ChangeLog.txt files to a server and a local by countng how 
-many packets have rebuilt or upgraded.
-
-
 Screenshot
 ---------
 
