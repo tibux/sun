@@ -17,8 +17,6 @@
 .. image:: https://img.shields.io/github/issues/dslackw/sun.svg
     :target: https://github.com/dslackw/sun/issues
 
-.. contents:: Table of Contents:
-
 About
 -----
 
@@ -28,12 +26,7 @@ package updates in Slackware.
 .. image:: https://raw.githubusercontent.com/dslackw/sun/master/icon/sun.png
     :target: https://github.com/dslackw/sun
 
-How works
----------
-In fact comparing the two ChangeLog.txt files to a server and a local by countng how 
-many packages have rebuilt or upgraded.
 
- 
 Installing
 ----------
 
@@ -41,24 +34,12 @@ Installing
 
     Use SlackBuild script or:
 
-    $ pip install sun --upgrade
+    $ pip install sun
 
 Usage
 -----
 
 .. code-block:: bash
-
-    $ sun help
-
-    Usage: sun [OPTION]
-
-    Optional  arguments:
-    help      display this help and exit
-    start     start sun daemon
-    stop      stop sun daemon
-    restart   restart sun daemon
-    check     check for software updates
-    status    sun daemon status
 
     $ sun start
     Starting sun daemon:  /usr/bin/sun_daemon
@@ -66,9 +47,6 @@ Usage
     $ sun stop
     Stoping sun daemon:  /usr/bin/sun_daemon
 
-    $ sun check
-    3 software updates are available !
-    
     $ sun status
     sun is not running
 
