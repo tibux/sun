@@ -113,4 +113,16 @@ Screenshot
 
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/sun_screenshot.png
     :target: https://github.com/dslackw/sun
- 
+
+Donate
+------
+If you feel satisfied with this project and want to thank me go
+to `Slackware <https://store.slackware.com/cgi-bin/store/slackdonation>`_ and make a donation or visit the `store <https://store.slackware.com/cgi-bin/store>`_.
+
+
+Copyright 
+---------
+
+- Copyright © Dimitris Zlatanidis
+- Slackware® is a Registered Trademark of Slackware Linux, Inc.
+- Linux is a Registered Trademark of Linus Torvalds.
