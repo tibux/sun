@@ -32,7 +32,7 @@ from utils import (
 )
 from __metadata__ import (
     __all__,
-    icon_path,
+    icon_path
 )
 
 

@@ -17,6 +17,8 @@
 .. image:: https://img.shields.io/github/issues/dslackw/sun.svg
     :target: https://github.com/dslackw/sun/issues
 
+.. contents:: Table of Contents:
+
 About
 -----
 
@@ -41,12 +43,27 @@ Usage
 
 .. code-block:: bash
 
+    $ sun help
+
+    Usage: sun [OPTION]
+
+    Optional  arguments:
+    help      display this help and exit
+    start     start sun daemon
+    stop      stop sun daemon
+    restart   restart sun daemon
+    check     check for software updates
+    status    sun daemon status
+
     $ sun start
     Starting sun daemon:  /usr/bin/sun_daemon
 
     $ sun stop
     Stoping sun daemon:  /usr/bin/sun_daemon
 
+    $ sun check
+    3 software updates are available !
+    
     $ sun status
     sun is not running
 
@@ -75,6 +92,12 @@ Configuration files
         Runtime configuration file
 
     
+How works
+---------
+In fact comparing the two ChangeLog.txt files to a server and a local by countng how 
+many packets have rebuilt or upgraded.
+
+
 Screenshot
 ---------
 

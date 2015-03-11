@@ -27,6 +27,8 @@ import time
 import getpass
 import commands
 import subprocess
+from sun.utils import fetch
+from sun.__metadata__ import __version__
 
 args = sys.argv
 args.pop(0)
@@ -38,6 +40,22 @@ if getpass.getuser() == "root":
     time.sleep(2)
 
 
+def usage():
+    args = [
+        "Version: {0}".format(__version__),
+        "Usage: sun [OPTION]\n",
+        "Optional  arguments:",
+        "help      display this help and exit",
+        "start     start sun daemon",
+        "stop      stop sun daemon",
+        "restart   restart sun daemon",
+        "check     check for software updates",
+        "status    sun daemon status"
+    ]
+    for opt in args:
+        print opt
+
+
 def init():
     if len(args) == 1:
         if args[0] == "start":
@@ -46,16 +64,22 @@ def init():
             subprocess.call("{0} {1}".format(cmd, "stop"), shell=True)
         elif args[0] == "restart":
             subprocess.call("{0} {1}".format(cmd, "restart"), shell=True)
+        elif args[0] == "check":
+            updates = fetch()[2]
+            if updates > 0:
+                print("{0} software updates are available !".format(updates))
+            else:
+                print("No news is good news !")
         elif args[0] == "status":
             out = commands.getoutput("ps -A")
             if "sun_daemon" in out:
                 print("sun is running ...")
             else:
                 print("sun not running")
+        elif args[0] == "help":
+            usage()
         else:
-            print("Usage: sun start|stop|restart|status")
-
+            print("try: sun help")
     else:
-        print("Usage: sun start|stop|restart|status")
-
+        print("try: sun help")
 init()
