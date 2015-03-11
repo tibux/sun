@@ -41,7 +41,7 @@ Installing
 
     Use SlackBuild script or:
 
-    $ pip install sun
+    $ pip install sun --upgrade
 
 Usage
 -----
