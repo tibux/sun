@@ -45,7 +45,7 @@ from sun.__metadata__ import (
 setup(
     name=__all__,
     packages=["sun"],
-    scripts=["bin/sun_daemon", "bin/sun"],
+    scripts=["bin/sun_daemon", "bin/sun", "bin/sun_gtk"],
     version=__version__,
     description="Tray notification applet for informing about package updates "
                 "in Slackware",

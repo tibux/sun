@@ -35,9 +35,8 @@ from sun.utils import fetch
 class GtkStatusIcon(object):
 
     def __init__(self):
-        # status = GtkStatusIcon()
-        self.icon = gtk.status_icon_new_from_file("{0}{1}.png".format(icon_path,
-                                                                      __all__))
+        self.sun_icon = "{0}{1}.png".format(icon_path, __all__)
+        self.icon = gtk.status_icon_new_from_file(self.sun_icon)
         self.icon.connect('popup-menu', self.right_click)
 
         self.cmd = "/etc/rc.d/rc.sun"
@@ -83,6 +82,15 @@ class GtkStatusIcon(object):
 
         msg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
                                 gtk.BUTTONS_OK, data)
+        img = gtk.Image()
+        img.set_from_file(self.sun_icon)
+        msg.set_image(img)
+
+        # action_area = msg.get_content_area()
+        # label_2 = gtk.Label("Slackware Update Notifier")
+        # action_area.add(label_2)
+
+        msg.show_all()
         msg.run()
         msg.destroy()
 
