@@ -51,13 +51,9 @@ class GtkStatusIcon(object):
         status = gtk.MenuItem("Status daemon")
         exit = gtk.MenuItem("Exit")
 
-        menu.append(about)
-        menu.append(start)
-        menu.append(stop)
-        menu.append(restart)
-        menu.append(check)
-        menu.append(status)
-        menu.append(exit)
+        menu_items = [about, start, stop, restart, check, status, exit]
+        for item in menu_items:
+            menu.append(item)
 
         about.connect_object("activate", self._about, "About")
         start.connect_object("activate", self._start, "Start daemon")
@@ -67,13 +63,8 @@ class GtkStatusIcon(object):
         status.connect_object("activate", self._status, "Status daemon")
         exit.connect_object("activate", self._exit, "Exit")
 
-        about.show()
-        start.show()
-        stop.show()
-        restart.show()
-        check.show()
-        status.show()
-        exit.show()
+        for item in menu_items:
+            item.show()
 
         menu.popup(None, None, None, event_button, event_time, data=None)
 
