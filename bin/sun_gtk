@@ -38,7 +38,6 @@ class GtkStatusIcon(object):
         self.sun_icon = "{0}{1}.png".format(icon_path, __all__)
         self.icon = gtk.status_icon_new_from_file(self.sun_icon)
         self.icon.connect('popup-menu', self.right_click)
-
         self.cmd = "/etc/rc.d/rc.sun"
 
     def icon_menu(self, event_button, event_time, data=None):
@@ -49,9 +48,9 @@ class GtkStatusIcon(object):
         restart = gtk.MenuItem("Restart daemon")
         check = gtk.MenuItem("Check updates")
         status = gtk.MenuItem("Status daemon")
-        exit = gtk.MenuItem("Exit")
+        exit_sun = gtk.MenuItem("Exit")
 
-        menu_items = [about, start, stop, restart, check, status, exit]
+        menu_items = [about, start, stop, restart, check, status, exit_sun]
         for item in menu_items:
             menu.append(item)
 
@@ -61,12 +60,12 @@ class GtkStatusIcon(object):
         restart.connect_object("activate", self._restart, "Restart daemon")
         check.connect_object("activate", self._check, "Check updates")
         status.connect_object("activate", self._status, "Status daemon")
-        exit.connect_object("activate", self._exit, "Exit")
+        exit_sun.connect_object("activate", self._exit, "Exit")
 
         for item in menu_items:
             item.show()
 
-        menu.popup(None, None, None, event_button, event_time, data=None)
+        menu.popup(None, None, None, event_button, event_time, data)
 
     def message(self, data):
         """ Function to display messages to the user """
@@ -88,14 +87,14 @@ class GtkStatusIcon(object):
     def right_click(self, data, event_button, event_time):
         self.icon_menu(event_button, event_time)
 
-    def _about(self, data=None):
+    def _about(self, data):
         self.message(data)
 
-    def _start(self, data=None):
+    def _start(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "start"), shell=True)
         self.message("Starting sun daemon ...")
 
-    def _stop(self, data=None):
+    def _stop(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "stop"), shell=True)
         self.message("Stoping sun daemon ...")
 
@@ -103,7 +102,7 @@ class GtkStatusIcon(object):
         subprocess.call("{0} {1}".format(self.cmd, "restart"), shell=True)
         self.message("Restarting sun daemon ...")
 
-    def _check(self, data=None):
+    def _check(self, data):
         upgraded, packages = fetch()[2:]
         if upgraded > 0:
             self.message("{0} software updates are available "
@@ -111,14 +110,14 @@ class GtkStatusIcon(object):
         else:
             self.message("No news is good news !")
 
-    def _status(self, data=None):
+    def _status(self, data):
         out = commands.getoutput("ps -A")
         if "sun_daemon" in out:
             self.message("sun is running ...")
         else:
             self.message("sun not running")
 
-    def _exit(self, data=None):
+    def _exit(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "stop"), shell=True)
         gtk.main_quit()
 
