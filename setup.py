@@ -32,19 +32,15 @@ except ImportError:
     from distutils.core import setup
 
 from sun.__metadata__ import (
-    __all__,
-    __version__,
-    __email__,
-    __author__,
-    conf_path,
-    icon_path,
-    bin_path,
-    rc_path
+    __all__, __version__,
+    __email__, __author__,
+    conf_path, icon_path,
+    bin_path, rc_path
 )
 
 setup(
     name=__all__,
-    packages=["sun"],
+    packages=["sun", "sun/gtk", "sun/cli"],
     scripts=["bin/sun_daemon", "bin/sun", "bin/sun_gtk"],
     version=__version__,
     description="Tray notification applet for informing about package updates "
