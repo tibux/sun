@@ -25,7 +25,7 @@ About
 Slackware Update Notifier is a tray notification applet for informing about
 package updates in Slackware and CLI tool for monitoring upgraded packages.
 
-.. image:: https://raw.githubusercontent.com/dslackw/sun/master/icon/sun.png
+.. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/sun.png
     :target: https://github.com/dslackw/sun
 
 How works
