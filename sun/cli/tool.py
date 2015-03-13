@@ -75,9 +75,10 @@ def status():
         print("sun not running")
 
 
-def init(args=sys.argv):
+def init():
     """ Initialization , all begin from here """
     su()
+    args = sys.argv
     args.pop(0)
     cmd = "/etc/rc.d/rc.sun"
     if len(args) == 1:
