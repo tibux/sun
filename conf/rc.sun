@@ -28,6 +28,14 @@ sun_restart() {
   sun_start
 }
 
+sun_gtk() {
+  if [ -x /usr/bin/sun_daemon ]; then
+    echo "Starting sun daemon:  /usr/bin/sun_daemon"
+    /usr/bin/sun_daemon --pidfile $PIDFILE &
+    /usr/bin/sun_gtk
+  fi
+}
+
 case "$1" in
 'start')
   sun_start
@@ -37,6 +45,9 @@ case "$1" in
   ;;
 'restart')
   sun_restart
+  ;;
+'start--gtk')
+  sun_gtk
   ;;
 *)
   echo "usage $0 start|stop|restart"
