@@ -41,16 +41,16 @@ class Notify(object):
     def __init__(self):
         pynotify.uninit()
         pynotify.init("sun")
-        self.server, self.local, self.upgraded = fetch()[:3]
+        self.pkg_count = fetch()[0]
         self.summary = "{0}Software Updates".format(" " * 14)
         self.message = "{0}{1} software updates are available !\n".format(
-            " " * 3, self.upgraded)
+            " " * 3, self.pkg_count)
         self.icon = "{0}{1}.png".format(icon_path, __all__)
         self.n = pynotify.Notification(self.summary, self.message, self.icon)
         self.n.set_timeout(60000 * int(config()['STANDBY']))
 
     def show(self):
-        if self.server != self.local:
+        if self.pkg_count > 0:
             self.n.show()     # start daemon
 
 

@@ -22,7 +22,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import os
 import re
 import urllib2
 from __metadata__ import (
@@ -82,20 +81,18 @@ def fetch():
     """ Get ChangeLog.txt file size and count upgraded packages"""
     tar = urlopen(mirror())
     r = tar.read()
-    meta = tar.info()
-    server = int(meta.getheaders("Content-Length")[0])
-    local = os.path.getsize("{0}{1}".format(var_lib_slackpkg, changelog_txt))
     count = 0
-    slackpkg_last_updates = read_file("{0}{1}".format(
+    # slackware_last_date = r.split("\n", 1)[0].strip()
+    slackpkg_last_date = read_file("{0}{1}".format(
         var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
     packages = []
     for line in r.splitlines():
+        if slackpkg_last_date == line.strip():
+            break
         if line.endswith("Upgraded.") or line.endswith("Rebuilt."):
             packages.append(line.split("/")[-1])
             count += 1
-        if slackpkg_last_updates == line.strip():
-            break
-    return [server, local, count, packages]
+    return [count, packages]
 
 
 def config():

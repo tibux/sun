@@ -151,6 +151,8 @@ class GtkStatusIcon(object):
         msg, count, packages = check_updates()
         data = msg
         if count > 0:
+            if len(packages) > 10:
+                packages = packages[:10] + ["and more..."]
             self.message("{0} \n\n{1}".format(data, "\n".join(packages)))
         else:
             self.message(data)

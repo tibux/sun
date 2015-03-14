@@ -57,7 +57,7 @@ def usage():
 
 def check_updates():
     """ check and display upgraded packages """
-    count, packages = fetch()[2:]
+    count, packages = fetch()
     message = "No news is good news !"
     if count > 0:
         message = "{0} software updates are available !".format(count)

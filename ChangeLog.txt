@@ -1,4 +1,11 @@
 14-03-2015
+Version 1.0.3
+
+[updated] - BugFix with slackpkg+ update. Thanks to Maciej Gołuchowski 
+		  - for report.
+		  - BugFix gtk display large number of packages.
+
+14-03-2015
 Version 1.0.2
 
 [Feature] - Added gtk status icon with popup menu.
