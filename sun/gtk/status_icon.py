@@ -42,37 +42,40 @@ class GtkStatusIcon(object):
         gtk.main()
 
     def icon_menu(self, event_button, event_time, data=None):
+
+        start = gtk.MenuItem("Start")
+        stop = gtk.MenuItem("Stop")
+        start.show()
+        stop.show()
+        submenu = gtk.Menu()
+        submenu.append(start)
+        submenu.append(stop)
+
+        daemon = gtk.ImageMenuItem("Daemon")
+        img_daemon = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_MENU)
+        img_daemon.show()
+
+        daemon.set_submenu(submenu)
+        daemon.show()
+
         menu = gtk.Menu()
+        menu.append(daemon)
 
-        menu_item = gtk.ImageMenuItem("About")
-        img = gtk.image_new_from_stock(gtk.STOCK_REFRESH, gtk.ICON_SIZE_MENU)
-        img.show()
-        menu_item.set_image(img)
-        menu.append(menu_item)
-        menu_item.show()
+        menu_about = gtk.ImageMenuItem("About")
+        img_about = gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU)
+        img_about.show()
 
-        about = gtk.MenuItem("About")
-        start = gtk.MenuItem("Start daemon")
-        stop = gtk.MenuItem("Stop daemon")
-        restart = gtk.MenuItem("Restart daemon")
-        check = gtk.MenuItem("Check updates")
-        status = gtk.MenuItem("Status daemon")
-        exit_sun = gtk.MenuItem("Exit")
+        menu_about.set_image(img_about)
+        daemon.set_image(img_daemon)
 
-        menu_items = [about, start, stop, restart, check, status, exit_sun]
-        for item in menu_items:
-            menu.append(item)
+        menu.append(menu_about)
+        menu.append(daemon)
 
-        about.connect_object("activate", self._about, "About")
-        start.connect_object("activate", self._start, "Start daemon")
-        stop.connect_object("activate", self._stop, "Stop daemon")
-        restart.connect_object("activate", self._restart, "Restart daemon")
-        check.connect_object("activate", self._check, "Check updates")
-        status.connect_object("activate", self._status, "Status daemon")
-        exit_sun.connect_object("activate", self._exit, "Exit")
+        menu_about.show()
+        daemon.show()
 
-        for item in menu_items:
-            item.show()
+        menu_about.connect_object("activate", self._about, "About")
+        # menu_start.connect_object("activate", self._start, "Start daemon")
 
         menu.popup(None, None, None, event_button, event_time, data)
 
@@ -100,14 +103,15 @@ class GtkStatusIcon(object):
         self.message(data)
 
     def _start(self, data):
+        data = "Starting sun daemon ..."
         subprocess.call("{0} {1}".format(self.cmd, "start"), shell=True)
-        self.message("Starting sun daemon ...")
+        self.message(data)
 
     def _stop(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "stop"), shell=True)
         self.message("Stoping sun daemon ...")
 
-    def _restart(self, data=None):
+    def _restart(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "restart"), shell=True)
         self.message("Restarting sun daemon ...")
 
@@ -131,9 +135,5 @@ class GtkStatusIcon(object):
         gtk.main_quit()
 
 
-def main():
-
-    GtkStatusIcon()
-
 if __name__ == '__main__':
-    main()
+    GtkStatusIcon()
