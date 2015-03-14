@@ -39,8 +39,7 @@ from sun.cli.tool import (
 class GtkStatusIcon(object):
 
     def __init__(self):
-
-        self.daemon_STOCK = gtk.STOCK_MEDIA_RECORD
+        self.daemon_STOCK = gtk.STOCK_YES
         self.sun_icon = "{0}{1}.png".format(icon_path, __all__)
         self.icon = gtk.status_icon_new_from_file(self.sun_icon)
         self.icon.connect('popup-menu', self.right_click)
