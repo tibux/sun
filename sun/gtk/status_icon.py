@@ -41,8 +41,7 @@ class GtkStatusIcon(object):
         self.cmd = "/etc/rc.d/rc.sun"
         gtk.main()
 
-    def icon_menu(self, event_button, event_time, data=None):
-
+    def sub_menu(self):
         start = gtk.MenuItem("Start")
         stop = gtk.MenuItem("Stop")
         start.show()
@@ -50,29 +49,33 @@ class GtkStatusIcon(object):
         submenu = gtk.Menu()
         submenu.append(start)
         submenu.append(stop)
+        self.daemon = gtk.ImageMenuItem("Daemon")
+        self.img_daemon = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD,
+                                                   gtk.ICON_SIZE_MENU)
+        self.img_daemon.show()
 
-        daemon = gtk.ImageMenuItem("Daemon")
-        img_daemon = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD, gtk.ICON_SIZE_MENU)
-        img_daemon.show()
+        self.daemon.set_submenu(submenu)
+        self.daemon.show()
 
-        daemon.set_submenu(submenu)
-        daemon.show()
+    def menu(self, event_button, event_time, data=None):
 
+        self.sub_menu()
         menu = gtk.Menu()
-        menu.append(daemon)
+        menu.append(self.daemon)
 
         menu_about = gtk.ImageMenuItem("About")
-        img_about = gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU)
+        img_about = gtk.image_new_from_stock(gtk.STOCK_ABOUT,
+                                             gtk.ICON_SIZE_MENU)
         img_about.show()
 
         menu_about.set_image(img_about)
-        daemon.set_image(img_daemon)
+        self.daemon.set_image(self.img_daemon)
 
         menu.append(menu_about)
-        menu.append(daemon)
+        menu.append(self.daemon)
 
         menu_about.show()
-        daemon.show()
+        self.daemon.show()
 
         menu_about.connect_object("activate", self._about, "About")
         # menu_start.connect_object("activate", self._start, "Start daemon")
@@ -97,7 +100,7 @@ class GtkStatusIcon(object):
         msg.destroy()
 
     def right_click(self, data, event_button, event_time):
-        self.icon_menu(event_button, event_time)
+        self.menu(event_button, event_time)
 
     def _about(self, data):
         self.message(data)
