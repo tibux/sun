@@ -112,17 +112,20 @@ Configuration files
         Runtime configuration file
 
     
-Screenshot
----------
+Screenshots
+-----------
 
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/gtk_daemon.png
     :target: https://github.com/dslackw/sun
 
+
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/xfce_screenshot.png
     :target: https://github.com/dslackw/sun
 
+
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/kde_screenshot.png
     :target: https://github.com/dslackw/sun
+
 
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/check_updates.png
     :target: https://github.com/dslackw/sun
