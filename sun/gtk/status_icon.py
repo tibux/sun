@@ -42,20 +42,28 @@ class GtkStatusIcon(object):
         gtk.main()
 
     def sub_menu(self):
-        start = gtk.MenuItem("Start")
-        stop = gtk.MenuItem("Stop")
-        start.show()
-        stop.show()
+
+        self.start = gtk.MenuItem("Start")
+        self.stop = gtk.MenuItem("Stop")
+        self.restart = gtk.MenuItem("Restart")
+        self.status = gtk.MenuItem("Status")
+
+        self.start.show()
+        self.stop.show()
+        self.restart.show()
+        self.status.show()
+
         submenu = gtk.Menu()
-        submenu.append(start)
-        submenu.append(stop)
+        submenu.append(self.start)
+        submenu.append(self.stop)
+        submenu.append(self.restart)
+        submenu.append(self.status)
+
         self.daemon = gtk.ImageMenuItem("Daemon")
         self.img_daemon = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD,
                                                    gtk.ICON_SIZE_MENU)
         self.img_daemon.show()
-
         self.daemon.set_submenu(submenu)
-        self.daemon.show()
 
     def menu(self, event_button, event_time, data=None):
 
@@ -78,7 +86,10 @@ class GtkStatusIcon(object):
         self.daemon.show()
 
         menu_about.connect_object("activate", self._about, "About")
-        # menu_start.connect_object("activate", self._start, "Start daemon")
+        self.start.connect_object("activate", self._start, "Start daemon")
+        self.stop.connect_object("activate", self._stop, "Start daemon")
+        self.restart.connect_object("activate", self._restart, "Start daemon")
+        self.status.connect_object("activate", self._status, "Start daemon")
 
         menu.popup(None, None, None, event_button, event_time, data)
 
