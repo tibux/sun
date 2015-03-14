@@ -22,7 +22,7 @@
 About
 -----
 
-Slackware Update Notifier is a tray notification applet for informing about
+SUN (Slackware Update Notifier) is a tray notification applet for informing about
 package updates in Slackware and CLI tool for monitoring upgraded packages.
 
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/sun.png
@@ -39,7 +39,11 @@ Installing
 
 .. code-block:: bash
 
-    Use SlackBuild script or:
+    $ tar xvf sun-1.0.2.tar.gz
+    $ cd slpkg-1.0.2
+    $ ./install.sh
+
+    or
 
     $ pip install sun --upgrade
 
@@ -55,7 +59,7 @@ Usage
     
     Name: sun
     Description: Slackware Update Notifier
-    Command: /usr/bin/sun start
+    Command: /usr/bin/sun start --gtk
     [Ok]
 
 
@@ -65,7 +69,7 @@ CLI
 .. code-block:: bash
 
     $ sun help
-    Slackware Update Notifier - Version: 1.0.1
+    Slackware Update Notifier - Version: 1.0.2
 
     Usage: sun [OPTION]
 
@@ -111,9 +115,13 @@ Configuration files
 Screenshot
 ---------
 
-.. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/sun_screenshot.png
+.. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/xfce_screenshot.png
     :target: https://github.com/dslackw/sun
 
+.. image:: https://raw.githubusercontent.com/dslackw/images/master/sun/kde_screenshot.png
+    :target: https://github.com/dslackw/sun
+
+ 
 Donate
 ------
 If you feel satisfied with this project and want to thank me go
