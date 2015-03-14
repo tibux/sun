@@ -23,13 +23,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import gtk
-import commands
 import subprocess
 from sun.__metadata__ import (
     __all__,
     icon_path
 )
-from sun.utils import fetch
+from sun.cli.tool import (
+    check_updates,
+    daemon_status
+)
 
 
 class GtkStatusIcon(object):
@@ -71,6 +73,11 @@ class GtkStatusIcon(object):
         menu = gtk.Menu()
         menu.append(self.daemon)
 
+        menu_Check = gtk.ImageMenuItem("Check updates")
+        img_Check = gtk.image_new_from_stock(gtk.STOCK_REFRESH,
+                                             gtk.ICON_SIZE_MENU)
+        img_Check.show()
+
         menu_About = gtk.ImageMenuItem("About")
         img_About = gtk.image_new_from_stock(gtk.STOCK_ABOUT,
                                              gtk.ICON_SIZE_MENU)
@@ -85,20 +92,24 @@ class GtkStatusIcon(object):
                                             gtk.ICON_SIZE_MENU)
         img_Quit.show()
 
+        menu_Check.set_image(img_Check)
         menu_About.set_image(img_About)
         menu_Quit.set_image(img_Quit)
 
+        menu.append(menu_Check)
         menu.append(menu_About)
         menu.append(menu_Quit)
 
+        menu_Check.show()
         menu_About.show()
         menu_Quit.show()
 
+        menu_Check.connect_object("activate", self._Check, " ")
         menu_About.connect_object("activate", self._About, "About")
         self.start.connect_object("activate", self._start, "Start daemon")
         self.stop.connect_object("activate", self._stop, "Stop daemon")
         self.restart.connect_object("activate", self._restart, "Restart daemon")
-        self.status.connect_object("activate", self._status, "Status: ")
+        self.status.connect_object("activate", self._status, daemon_status())
         menu_Quit.connect_object("activate", self._Quit, "Quit")
 
         menu.popup(None, None, None, event_button, event_time, data)
@@ -123,6 +134,14 @@ class GtkStatusIcon(object):
     def right_click(self, data, event_button, event_time):
         self.menu(event_button, event_time)
 
+    def _Check(self, data):
+        msg, count, packages = check_updates()
+        data = msg
+        if count > 0:
+            self.message("{0} \n\n{1}".format(data, "\n".join(packages)))
+        else:
+            self.message(data)
+
     def _About(self, data):
         self.message(data)
 
@@ -138,20 +157,8 @@ class GtkStatusIcon(object):
         subprocess.call("{0} {1}".format(self.cmd, "restart"), shell=True)
         self.message(data)
 
-    def _check(self, data):
-        upgraded, packages = fetch()[2:]
-        if upgraded > 0:
-            self.message("{0} software updates are available "
-                         "!\n\n{1}".format(str(upgraded), "\n".join(packages)))
-        else:
-            self.message("No news is good news !")
-
     def _status(self, data):
-        out = commands.getoutput("ps -A")
-        if "sun_daemon" in out:
-            self.message(data + " sun is running ...")
-        else:
-            self.message(data + " sun not running")
+        self.message(data)
 
     def _Quit(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "stop"), shell=True)
