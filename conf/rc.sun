@@ -28,11 +28,13 @@ sun_restart() {
   sun_start
 }
 
+# Start sun paraller with gtk status icon
 sun_gtk() {
   if [ -x /usr/bin/sun_daemon ]; then
     echo "Starting sun daemon:  /usr/bin/sun_daemon"
     /usr/bin/sun_daemon --pidfile $PIDFILE &
-    /usr/bin/sun_gtk
+    echo "Starting gtk status icon: /usr/bin/sun_gtk"
+    /usr/bin/sun_gtk &
   fi
 }
 
