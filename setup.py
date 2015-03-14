@@ -35,7 +35,7 @@ from sun.__metadata__ import (
     __all__, __version__,
     __email__, __author__,
     conf_path, icon_path,
-    bin_path, rc_path
+    bin_path, rc_path, desktop_path
 )
 
 setup(
@@ -79,3 +79,5 @@ if "install" in sys.argv:
     os.chmod(rc_path + "rc.sun", 0755)
     print("Install sun.png --> {0}".format(icon_path))
     shutil.copy2("icon/{0}.png".format(__all__), icon_path)
+    print("Install sun.desktop --> {0}".format(desktop_path))
+    shutil.copy2("{0}.desktop".format(__all__), desktop_path)
