@@ -139,10 +139,6 @@ class GtkStatusIcon(object):
         img.set_from_file(self.sun_icon)
         msg.set_image(img)
 
-        # action_area = msg.get_content_area()
-        # label_2 = gtk.Label("Slackware Update Notifier")
-        # action_area.add(label_2)
-
         msg.show_all()
         msg.run()
         msg.destroy()

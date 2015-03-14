@@ -1,3 +1,8 @@
+14-03-2015
+Version 1.0.2
+
+[Feature] - Added gtk status icon with popup menu.
+
 11-03-2015
 Version 1.0.1
 
