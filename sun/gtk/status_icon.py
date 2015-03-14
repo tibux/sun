@@ -26,6 +26,8 @@ import gtk
 import subprocess
 from sun.__metadata__ import (
     __all__,
+    __email__,
+    __copyright__,
     icon_path
 )
 from sun.cli.tool import (
@@ -37,6 +39,8 @@ from sun.cli.tool import (
 class GtkStatusIcon(object):
 
     def __init__(self):
+
+        self.daemon_STOCK = gtk.STOCK_MEDIA_RECORD
         self.sun_icon = "{0}{1}.png".format(icon_path, __all__)
         self.icon = gtk.status_icon_new_from_file(self.sun_icon)
         self.icon.connect('popup-menu', self.right_click)
@@ -62,7 +66,7 @@ class GtkStatusIcon(object):
         submenu.append(self.status)
 
         self.daemon = gtk.ImageMenuItem("Daemon")
-        self.img_daemon = gtk.image_new_from_stock(gtk.STOCK_MEDIA_RECORD,
+        self.img_daemon = gtk.image_new_from_stock(self.daemon_STOCK,
                                                    gtk.ICON_SIZE_MENU)
         self.img_daemon.show()
         self.daemon.set_submenu(submenu)
@@ -105,12 +109,19 @@ class GtkStatusIcon(object):
         menu_Quit.show()
 
         menu_Check.connect_object("activate", self._Check, " ")
-        menu_About.connect_object("activate", self._About, "About")
+        menu_About.connect_object("activate", self._About,
+                                  "Slackware Update Notifier\n\n"
+                                  "Copyright {0} © Dimitris Zlatanidis\n"
+                                  "Email: {1}\n"
+                                  "Slackware® is a Registered Trademark of "
+                                  "Slackware Linux, Inc.\n"
+                                  "Linux is a Registered Trademark of Linus "
+                                  "Torvalds.".format(__copyright__, __email__))
         self.start.connect_object("activate", self._start, "Start daemon")
         self.stop.connect_object("activate", self._stop, "Stop daemon")
         self.restart.connect_object("activate", self._restart, "Restart daemon")
         self.status.connect_object("activate", self._status, daemon_status())
-        menu_Quit.connect_object("activate", self._Quit, "Quit")
+        menu_Quit.connect_object("activate", self._Quit, "stop")
 
         menu.popup(None, None, None, event_button, event_time, data)
 
@@ -147,10 +158,12 @@ class GtkStatusIcon(object):
 
     def _start(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "start"), shell=True)
+        self.daemon_STOCK = gtk.STOCK_YES
         self.message(data)
 
     def _stop(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "stop"), shell=True)
+        self.daemon_STOCK = gtk.STOCK_MEDIA_RECORD
         self.message(data)
 
     def _restart(self, data):
@@ -161,9 +174,13 @@ class GtkStatusIcon(object):
         self.message(data)
 
     def _Quit(self, data):
-        subprocess.call("{0} {1}".format(self.cmd, "stop"), shell=True)
+        subprocess.call("{0} {1}".format(self.cmd, data), shell=True)
         gtk.main_quit()
 
 
+def main():
+
+        GtkStatusIcon()
+
 if __name__ == '__main__':
-    GtkStatusIcon()
+    main()

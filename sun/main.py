@@ -34,7 +34,6 @@ from __metadata__ import (
     __all__,
     icon_path
 )
-from sun.gtk.status_icon import GtkStatusIcon
 
 
 class Notify(object):
@@ -56,8 +55,6 @@ class Notify(object):
 
 
 def main():
-
-    GtkStatusIcon()
 
     while True:
         connection = True

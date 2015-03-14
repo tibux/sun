@@ -55,24 +55,22 @@ def usage():
         print opt
 
 
-def check():
+def check_updates():
     """ check and display upgraded packages """
-    upgraded, packages = fetch()[2:]
-    if upgraded > 0:
-        print("{0} software updates are available !".format(upgraded))
-        for pkg in packages:
-            print pkg
-    else:
-        print("No news is good news !")
+    count, packages = fetch()[2:]
+    message = "No news is good news !"
+    if count > 0:
+        message = "{0} software updates are available !".format(count)
+    return [message, count, packages]
 
 
-def status():
+def daemon_status():
     """ display sun daemon status """
     out = commands.getoutput("ps -A")
+    st = "sun not running"
     if "sun_daemon" in out:
-        print("sun is running ...")
-    else:
-        print("sun not running")
+        st = "sun is running ..."
+    return st
 
 
 def init():
@@ -89,12 +87,20 @@ def init():
         elif args[0] == "restart":
             subprocess.call("{0} {1}".format(cmd, "restart"), shell=True)
         elif args[0] == "check":
-            check()
+            message, count, packages = check_updates()
+            if count > 0:
+                print message
+                for pkg in packages:
+                    print pkg
+            else:
+                print message
         elif args[0] == "status":
-            status()
+            print daemon_status()
         elif args[0] == "help":
             usage()
         else:
             print("try: sun help")
+    elif len(args) == 2 and args[0] == "start" and args[1] == "--gtk":
+        subprocess.call("{0} {1}".format(cmd, "start--gtk"), shell=True)
     else:
         print("try: sun help")
