@@ -48,7 +48,7 @@ class GtkStatusIcon(object):
         gtk.main()
 
     def sub_menu(self):
-
+        """ Create daemon submenu """
         self.start = gtk.MenuItem("Start")
         self.stop = gtk.MenuItem("Stop")
         self.restart = gtk.MenuItem("Restart")
@@ -72,7 +72,7 @@ class GtkStatusIcon(object):
         self.daemon.set_submenu(submenu)
 
     def menu(self, event_button, event_time, data=None):
-
+        """ Create popup menu """
         self.sub_menu()
         menu = gtk.Menu()
         menu.append(self.daemon)
@@ -127,7 +127,6 @@ class GtkStatusIcon(object):
 
     def message(self, data):
         """ Function to display messages to the user """
-
         msg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
                                 gtk.BUTTONS_OK, data)
         img = gtk.Image()
@@ -143,6 +142,7 @@ class GtkStatusIcon(object):
         msg.destroy()
 
     def right_click(self, data, event_button, event_time):
+        """ Right click handler """
         self.menu(event_button, event_time)
 
     def _Check(self, data):
@@ -168,6 +168,7 @@ class GtkStatusIcon(object):
 
     def _restart(self, data):
         subprocess.call("{0} {1}".format(self.cmd, "restart"), shell=True)
+        self.daemon_STOCK = gtk.STOCK_YES
         self.message(data)
 
     def _status(self, data):
