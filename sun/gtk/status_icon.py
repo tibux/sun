@@ -22,6 +22,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
+import pygtk
+pygtk.require('2.0')
 import gtk
 import subprocess
 from sun.__metadata__ import (
@@ -76,6 +79,8 @@ class GtkStatusIcon(object):
         menu = gtk.Menu()
         menu.append(self.daemon)
 
+        separator = gtk.SeparatorMenuItem()
+
         menu_Check = gtk.ImageMenuItem("Check updates")
         img_Check = gtk.image_new_from_stock(gtk.STOCK_REFRESH,
                                              gtk.ICON_SIZE_MENU)
@@ -99,10 +104,12 @@ class GtkStatusIcon(object):
         menu_About.set_image(img_About)
         menu_Quit.set_image(img_Quit)
 
+        menu.append(separator)
         menu.append(menu_Check)
         menu.append(menu_About)
         menu.append(menu_Quit)
 
+        separator.show()
         menu_Check.show()
         menu_About.show()
         menu_Quit.show()
