@@ -67,10 +67,10 @@ def check_updates():
 def daemon_status():
     """ display sun daemon status """
     out = commands.getoutput("ps -A")
-    st = "sun not running"
+    message = "sun not running"
     if "sun_daemon" in out:
-        st = "sun is running ..."
-    return st
+        message = "sun is running ..."
+    return message
 
 
 def init():
