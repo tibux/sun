@@ -42,10 +42,13 @@ from sun.cli.tool import (
 class GtkStatusIcon(object):
 
     def __init__(self):
+        self.dialog_title = ""
         self.daemon_STOCK = gtk.STOCK_YES
         self.sun_icon = "{0}{1}.png".format(icon_path, __all__)
         self.icon = gtk.status_icon_new_from_file(self.sun_icon)
         self.icon.connect('popup-menu', self.right_click)
+        self.img = gtk.Image()
+        self.img.set_from_file(self.sun_icon)
         self.cmd = "/etc/rc.d/rc.sun"
         gtk.main()
 
@@ -116,16 +119,17 @@ class GtkStatusIcon(object):
 
         menu_Check.connect_object("activate", self._Check, " ")
         menu_About.connect_object("activate", self._About,
-                                  "Slackware Update Notifier\n\n"
+                                  "SUN (Slackware Update Notifier)\n\n"
                                   "Copyright {0} © Dimitris Zlatanidis\n"
                                   "Email: {1}\n"
                                   "Slackware® is a Registered Trademark of "
                                   "Slackware Linux, Inc.\n"
                                   "Linux is a Registered Trademark of Linus "
                                   "Torvalds.".format(__copyright__, __email__))
-        self.start.connect_object("activate", self._start, "Start daemon")
-        self.stop.connect_object("activate", self._stop, "Stop daemon")
-        self.restart.connect_object("activate", self._restart, "Restart daemon")
+        self.start.connect_object("activate", self._start, "Start daemon   ")
+        self.stop.connect_object("activate", self._stop, "Stop daemon   ")
+        self.restart.connect_object("activate", self._restart,
+                                    "Restart daemon   ")
         self.status.connect_object("activate", self._status, daemon_status())
         menu_Quit.connect_object("activate", self._Quit, "stop")
 
@@ -135,10 +139,9 @@ class GtkStatusIcon(object):
         """ Function to display messages to the user """
         msg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
                                 gtk.BUTTONS_OK, data)
-        img = gtk.Image()
-        img.set_from_file(self.sun_icon)
-        msg.set_image(img)
-
+        msg.set_title(self.dialog_title)
+        self.img.set_from_file(self.sun_icon)
+        msg.set_image(self.img)
         msg.show_all()
         msg.run()
         msg.destroy()
@@ -148,6 +151,7 @@ class GtkStatusIcon(object):
         self.menu(event_button, event_time)
 
     def _Check(self, data):
+        self.dialog_title = "SUN - Check updates"
         msg, count, packages = check_updates()
         data = msg
         if count > 0:
@@ -158,25 +162,30 @@ class GtkStatusIcon(object):
             self.message(data)
 
     def _About(self, data):
+        self.dialog_title = "SUN - About"
         self.message(data)
 
     def _start(self, data):
+        self.dialog_title = "Daemon"
         subprocess.call("{0} {1}".format(self.cmd, "start"), shell=True)
         self.daemon_STOCK = gtk.STOCK_YES
         self.message(data)
 
     def _stop(self, data):
+        self.dialog_title = "Daemon"
         subprocess.call("{0} {1}".format(self.cmd, "stop"), shell=True)
         self.daemon_STOCK = gtk.STOCK_MEDIA_RECORD
         self.message(data)
 
     def _restart(self, data):
+        self.dialog_title = "Daemon"
         subprocess.call("{0} {1}".format(self.cmd, "restart"), shell=True)
         self.daemon_STOCK = gtk.STOCK_YES
         self.message(data)
 
     def _status(self, data):
-        self.message(data)
+        self.dialog_title = "Daemon"
+        self.message(data + " " * 3)
 
     def _Quit(self, data):
         subprocess.call("{0} {1}".format(self.cmd, data), shell=True)
