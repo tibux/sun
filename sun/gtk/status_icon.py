@@ -27,10 +27,13 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import subprocess
+from sun.licenses import (
+    lic, abt
+)
 from sun.__metadata__ import (
     __all__,
-    __email__,
-    __copyright__,
+    __version__,
+    __website__,
     icon_path
 )
 from sun.cli.tool import (
@@ -94,6 +97,11 @@ class GtkStatusIcon(object):
                                              gtk.ICON_SIZE_MENU)
         img_About.show()
 
+        menu_License = gtk.ImageMenuItem("License")
+        img_License = gtk.image_new_from_stock(gtk.STOCK_ABOUT,
+                                               gtk.ICON_SIZE_MENU)
+        img_License.show()
+
         self.daemon.set_image(self.img_daemon)
         menu.append(self.daemon)
         self.daemon.show()
@@ -105,27 +113,24 @@ class GtkStatusIcon(object):
 
         menu_Check.set_image(img_Check)
         menu_About.set_image(img_About)
+        menu_License.set_image(img_License)
         menu_Quit.set_image(img_Quit)
 
         menu.append(separator)
         menu.append(menu_Check)
         menu.append(menu_About)
+        menu.append(menu_License)
         menu.append(menu_Quit)
 
         separator.show()
         menu_Check.show()
         menu_About.show()
+        menu_License.show()
         menu_Quit.show()
 
         menu_Check.connect_object("activate", self._Check, " ")
-        menu_About.connect_object("activate", self._About,
-                                  "SUN (Slackware Update Notifier)\n\n"
-                                  "Copyright {0} © Dimitris Zlatanidis\n"
-                                  "Email: {1}\n"
-                                  "Slackware® is a Registered Trademark of "
-                                  "Slackware Linux, Inc.\n"
-                                  "Linux is a Registered Trademark of Linus "
-                                  "Torvalds.".format(__copyright__, __email__))
+        menu_About.connect_object("activate", self._About, "SUN")
+        menu_License.connect_object("activate", self._License, "Licence   ")
         self.start.connect_object("activate", self._start, "Start daemon   ")
         self.stop.connect_object("activate", self._stop, "Stop daemon   ")
         self.restart.connect_object("activate", self._restart,
@@ -138,7 +143,8 @@ class GtkStatusIcon(object):
     def message(self, data):
         """ Function to display messages to the user """
         msg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
-                                gtk.BUTTONS_OK, data)
+                                gtk.BUTTONS_CLOSE, data)
+        msg.set_resizable(1)
         msg.set_title(self.dialog_title)
         self.img.set_from_file(self.sun_icon)
         msg.set_image(self.img)
@@ -162,8 +168,18 @@ class GtkStatusIcon(object):
             self.message(data)
 
     def _About(self, data):
-        self.dialog_title = "SUN - About"
-        self.message(data)
+        about = gtk.AboutDialog()
+        about.set_program_name(data)
+        about.set_version(__version__)
+        about.set_comments(abt)
+        about.set_website(__website__)
+        about.set_logo(gtk.gdk.pixbuf_new_from_file(self.sun_icon))
+        about.run()
+        about.destroy()
+
+    def _License(self, data):
+        self.dialog_title = "SUN - License"
+        self.message("\n".join(lic))
 
     def _start(self, data):
         self.dialog_title = "Daemon"
