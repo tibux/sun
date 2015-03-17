@@ -22,10 +22,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import re
 import urllib2
 from __metadata__ import (
     arch,
+    pkg_path,
     conf_path,
     etc_slackpkg,
     changelog_txt,
@@ -52,7 +54,16 @@ def read_file(registry):
 def slack_ver():
     """ Open file and read Slackware version """
     sv = read_file("/etc/slackware-version")
-    return (".".join(re.findall(r"\d+", sv)))
+    return sv.split()[0], (".".join(re.findall(r"\d+", sv)))
+
+
+def ins_packages():
+    """ Count Slackware packages """
+    count = 0
+    for pkg in os.listdir(pkg_path):
+        if not pkg.startswith("."):
+            count += 1
+    return count
 
 
 def read_config(config):
@@ -74,7 +85,7 @@ def mirror():
                                                     changelog_txt)
     else:
         return "{0}slackware{1}-{2}/{3}".format(slackware_mirror, arch,
-                                                slack_ver(), changelog_txt)
+                                                slack_ver()[1], changelog_txt)
 
 
 def fetch():
@@ -82,7 +93,6 @@ def fetch():
     tar = urlopen(mirror())
     r = tar.read()
     count = 0
-    # slackware_last_date = r.split("\n", 1)[0].strip()
     slackpkg_last_date = read_file("{0}{1}".format(
         var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
     packages = []

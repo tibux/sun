@@ -34,11 +34,11 @@ __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
 __website__ = "https://github.com/dslackw/sun"
 
-
 updater = "slackpkg"
 changelog_txt = "ChangeLog.txt"
 bin_path = "/usr/bin/"
 rc_path = "/etc/rc.d/"
+pkg_path = "/var/log/packages/"
 icon_path = "/usr/share/pixmaps/"
 desktop_path = "/usr/share/applications/"
 conf_path = "/etc/{0}/".format(__all__)

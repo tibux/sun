@@ -23,6 +23,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
+import os
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -39,6 +40,11 @@ from sun.__metadata__ import (
 from sun.cli.tool import (
     check_updates,
     daemon_status
+)
+from sun.utils import (
+    ins_packages,
+    slack_ver,
+    mirror
 )
 
 
@@ -92,13 +98,18 @@ class GtkStatusIcon(object):
                                              gtk.ICON_SIZE_MENU)
         img_Check.show()
 
+        menu_Info = gtk.ImageMenuItem("Information")
+        img_Info = gtk.image_new_from_stock(gtk.STOCK_INFO,
+                                            gtk.ICON_SIZE_MENU)
+        img_Info.show()
+
         menu_About = gtk.ImageMenuItem("About")
         img_About = gtk.image_new_from_stock(gtk.STOCK_ABOUT,
                                              gtk.ICON_SIZE_MENU)
         img_About.show()
 
         menu_License = gtk.ImageMenuItem("License")
-        img_License = gtk.image_new_from_stock(gtk.STOCK_ABOUT,
+        img_License = gtk.image_new_from_stock(gtk.STOCK_DND,
                                                gtk.ICON_SIZE_MENU)
         img_License.show()
 
@@ -112,23 +123,27 @@ class GtkStatusIcon(object):
         img_Quit.show()
 
         menu_Check.set_image(img_Check)
+        menu_Info.set_image(img_Info)
         menu_About.set_image(img_About)
         menu_License.set_image(img_License)
         menu_Quit.set_image(img_Quit)
 
-        menu.append(separator)
         menu.append(menu_Check)
+        menu.append(menu_Info)
+        menu.append(separator)
         menu.append(menu_About)
         menu.append(menu_License)
         menu.append(menu_Quit)
 
         separator.show()
         menu_Check.show()
+        menu_Info.show()
         menu_About.show()
         menu_License.show()
         menu_Quit.show()
 
         menu_Check.connect_object("activate", self._Check, " ")
+        menu_Info.connect_object("activate", self._Info, "Information")
         menu_About.connect_object("activate", self._About, "SUN")
         menu_License.connect_object("activate", self._License, "Licence   ")
         self.start.connect_object("activate", self._start, "Start daemon   ")
@@ -166,6 +181,22 @@ class GtkStatusIcon(object):
             self.message("{0} \n\n{1}".format(data, "\n".join(packages)))
         else:
             self.message(data)
+
+    def _Info(self, data):
+        self.dialog_title = "SUN - " + data
+        slack, ver = slack_ver()
+        stype = "Stable"
+        if "Current" in mirror():
+            stype = "current"
+        info = ("OS: {0}\n"
+                "Version: {1}\n"
+                "Type: {2}\n"
+                "Arch: {3}\n"
+                "Kernel: {4}\n"
+                "Packages: {5}".format(slack, ver, stype, os.uname()[4],
+                                       os.uname()[2], ins_packages())
+                )
+        self.message(info)
 
     def _About(self, data):
         about = gtk.AboutDialog()
@@ -210,7 +241,7 @@ class GtkStatusIcon(object):
 
 def main():
 
-        GtkStatusIcon()
+    GtkStatusIcon()
 
 if __name__ == '__main__':
     main()
