@@ -58,7 +58,7 @@ def slack_ver():
 
 
 def ins_packages():
-    """ Count Slackware packages """
+    """ Count installed Slackware packages """
     count = 0
     for pkg in os.listdir(pkg_path):
         if not pkg.startswith("."):

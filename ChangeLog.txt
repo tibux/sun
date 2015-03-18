@@ -1,7 +1,13 @@
+18-03-2015
+Version 1.0.4
+
+[Updated] - Added information, license and update gtk.MessageBox.
+
+
 14-03-2015
 Version 1.0.3
 
-[updated] - BugFix with slackpkg+ update. Thanks to Maciej Gołuchowski 
+[Updated] - BugFix with slackpkg+ update. Thanks to Maciej Gołuchowski 
 		  - for report.
 		  - BugFix gtk display large number of packages.
 

@@ -118,8 +118,7 @@ class GtkStatusIcon(object):
         self.daemon.show()
 
         menu_Quit = gtk.ImageMenuItem("Quit")
-        img_Quit = gtk.image_new_from_stock(gtk.STOCK_QUIT,
-                                            gtk.ICON_SIZE_MENU)
+        img_Quit = gtk.image_new_from_stock(gtk.STOCK_QUIT, gtk.ICON_SIZE_MENU)
         img_Quit.show()
 
         menu_Check.set_image(img_Check)
