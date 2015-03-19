@@ -63,12 +63,11 @@ Usage
 
 i3 wm
 -----
+Example my_i3status.sh for i3 wm.
+Put that in some script, say .bin/my_i3status.sh and execute that instead 
+of `i3status <http://i3wm.org/i3status/manpage.html#_external_scripts_programs_with_i3status>`_
 
 .. code-block:: bash
-
-    Example my_i3status.sh for i3 wm.
-    Put that in some script, say .bin/my_i3status.sh and execute that instead 
-    of `i3status <http://i3wm.org/i3status/manpage.html#_external_scripts_programs_with_i3status>`_
 
     #!/bin/bash
     i3status | while :
