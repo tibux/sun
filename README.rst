@@ -61,7 +61,38 @@ Usage
     Command: /usr/bin/sun start --gtk
     [Ok]
 
+i3 wm
+-----
 
+.. code-block:: bash
+
+    Example my_i3status.sh for i3 wm.
+    Put that in some script, say .bin/my_i3status.sh and execute that instead 
+    of `i3status <http://i3wm.org/i3status/manpage.html#_external_scripts_programs_with_i3status>`_
+
+    #!/bin/bash
+    i3status | while :
+    do
+    read line
+    # get number of packages it have upgraded
+    num="$(python -c 'from sun.utils import fetch; print fetch()[0]')"
+    # check if upgraded
+    if (($num > 0)); then
+        msg="$num software updates are available"
+    else
+        msg="No news is good news"
+    fi
+    # print message
+    echo "SUN: $msg | $line" || exit 1
+    done
+
+    and add my_i3status.sh in ~/.i3/config:
+    ~/.i3/config
+    bar {
+            status_command my_i3status.sh
+    }
+
+    
 CLI
 ---
 
