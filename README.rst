@@ -74,6 +74,8 @@ of `i3status <http://i3wm.org/i3status/manpage.html#_external_scripts_programs_w
     do
     read line
     # get number of packages it have upgraded
+    # fetch()[0] number of upgraded packages
+    # fetch()[1] list of upgraded packages
     num="$(python -c 'from sun.utils import fetch; print fetch()[0]')"
     # check if upgraded
     if (($num > 0)); then
