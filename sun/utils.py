@@ -117,3 +117,19 @@ def config():
         if line and not line.startswith('#'):
             conf_args[line.split('=')[0]] = line.split('=')[1]
     return conf_args
+
+
+def os_info():
+    """ Get OS info """
+    slack, ver = slack_ver()
+    stype = "Stable"
+    if "current" in mirror():
+        stype = "Current"
+    info = ("OS: {0}\n"
+            "Version: {1}\n"
+            "Type: {2}\n"
+            "Arch: {3}\n"
+            "Kernel: {4}\n"
+            "Packages: {5}".format(slack, ver, stype, os.uname()[4],
+                                   os.uname()[2], ins_packages()))
+    return info

@@ -27,7 +27,10 @@ import time
 import getpass
 import commands
 import subprocess
-from sun.utils import fetch
+from sun.utils import (
+    fetch,
+    os_info
+)
 from sun.__metadata__ import __version__
 
 
@@ -41,15 +44,16 @@ def su():
 def usage():
     """ sun arguments """
     args = [
-        "Slackware Update Notifier - Version: {0}\n".format(__version__),
+        "SUN (Slackware Update Notifier) - Version: {0}\n".format(__version__),
         "Usage: sun [OPTION]\n",
         "Optional  arguments:",
-        "help      display this help and exit",
-        "start     start sun daemon",
-        "stop      stop sun daemon",
-        "restart   restart sun daemon",
-        "check     check for software updates",
-        "status    sun daemon status"
+        "  help           display this help and exit",
+        "  start          start sun daemon",
+        "  stop           stop sun daemon",
+        "  restart        restart sun daemon",
+        "  check          check for software updates",
+        "  status         sun daemon status",
+        "  info           os information"
     ]
     for opt in args:
         print opt
@@ -98,9 +102,11 @@ def init():
             print daemon_status()
         elif args[0] == "help":
             usage()
+        elif args[0] == "info":
+            print os_info()
         else:
-            print("try: sun help")
+            print("try: 'sun help'")
     elif len(args) == 2 and args[0] == "start" and args[1] == "--gtk":
         subprocess.call("{0} {1}".format(cmd, "start--gtk"), shell=True)
     else:
-        print("try: sun help")
+        print("try: 'sun help'")

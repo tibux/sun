@@ -23,7 +23,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-import os
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -42,9 +41,7 @@ from sun.cli.tool import (
     daemon_status
 )
 from sun.utils import (
-    ins_packages,
-    slack_ver,
-    mirror
+    os_info
 )
 
 
@@ -183,19 +180,7 @@ class GtkStatusIcon(object):
 
     def _Info(self, data):
         self.dialog_title = "SUN - " + data
-        slack, ver = slack_ver()
-        stype = "Stable"
-        if "Current" in mirror():
-            stype = "current"
-        info = ("OS: {0}\n"
-                "Version: {1}\n"
-                "Type: {2}\n"
-                "Arch: {3}\n"
-                "Kernel: {4}\n"
-                "Packages: {5}".format(slack, ver, stype, os.uname()[4],
-                                       os.uname()[2], ins_packages())
-                )
-        self.message(info)
+        self.message(os_info())
 
     def _About(self, data):
         about = gtk.AboutDialog()
