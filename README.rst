@@ -100,18 +100,19 @@ CLI
 .. code-block:: bash
 
     $ sun help
-    Slackware Update Notifier - Version: 1.0.5
+    SUN (Slackware Update Notifier) - Version: 1.0.5
 
     Usage: sun [OPTION]
 
     Optional  arguments:
-    help      display this help and exit
-    start     start sun daemon
-    stop      stop sun daemon
-    restart   restart sun daemon
-    check     check for software updates
-    status    sun daemon status
-
+      help           display this help and exit
+      start          start sun daemon
+      stop           stop sun daemon
+      restart        restart sun daemon
+      check          check for software updates
+      status         sun daemon status
+      info           os information
+    
     $ sun start
     Starting sun daemon:  /usr/bin/sun_daemon
 
