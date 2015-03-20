@@ -168,7 +168,7 @@ class GtkStatusIcon(object):
 
     def right_click(self, data, event_button, event_time):
         """ Right click handler """
-        self.menu(event_button, event_time)
+        self.menu(event_button, event_time, data)
 
     def _Check(self, data):
         self.dialog_title = "SUN - Check updates"
@@ -208,7 +208,7 @@ class GtkStatusIcon(object):
         about.destroy()
 
     def _License(self, data):
-        self.dialog_title = "SUN - License"
+        self.dialog_title = "SUN - " + data
         self.message("\n".join(lic))
 
     def _start(self, data):
