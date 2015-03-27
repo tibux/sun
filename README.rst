@@ -4,7 +4,7 @@
     :target: https://travis-ci.org/dslackw/sun
 .. image:: https://landscape.io/github/dslackw/sun/master/landscape.png
     :target: https://landscape.io/github/dslackw/sun/master
-.. image:: https://img.shields.io/codacy/6464ba0bd1e342e28388c71a34b3a5e8.svg
+.. image:: https://img.shields.io/codacy/ea3c2619e1124874a7d53079092dc956.svg
     :target: https://www.codacy.com/public/dzlatanidis/slpkg/dashboard
 .. image:: https://img.shields.io/pypi/dm/sun.svg
     :target: https://pypi.python.org/pypi/sun
