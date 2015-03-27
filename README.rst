@@ -5,7 +5,7 @@
 .. image:: https://landscape.io/github/dslackw/sun/master/landscape.png
     :target: https://landscape.io/github/dslackw/sun/master
 .. image:: https://img.shields.io/codacy/ea3c2619e1124874a7d53079092dc956.svg
-    :target: https://www.codacy.com/public/dzlatanidis/slpkg/dashboard
+    :target: https://www.codacy.com/public/dzlatanidis/sun/dashboard
 .. image:: https://img.shields.io/pypi/dm/sun.svg
     :target: https://pypi.python.org/pypi/sun
 .. image:: https://img.shields.io/badge/license-GPLv3-blue.svg
