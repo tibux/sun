@@ -58,6 +58,7 @@ def main():
 
     while True:
         connection = True
+        time.sleep(1)
         try:
             urllib2.urlopen(mirror())
         except urllib2.URLError:

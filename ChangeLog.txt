@@ -1,3 +1,8 @@
+31-03-2015
+Version 1.0.6
+
+[Updated] - Fix daemon loop wait 1 second before connect to ISP.
+
 20-03-2015
 Version 1.0.5
 
