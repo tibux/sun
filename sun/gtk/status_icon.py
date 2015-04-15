@@ -32,6 +32,8 @@ from sun.licenses import (
 )
 from sun.__metadata__ import (
     __all__,
+    __email__,
+    __author__,
     __version__,
     __website__,
     icon_path
@@ -105,11 +107,6 @@ class GtkStatusIcon(object):
                                              gtk.ICON_SIZE_MENU)
         img_About.show()
 
-        menu_License = gtk.ImageMenuItem("License")
-        img_License = gtk.image_new_from_stock(gtk.STOCK_DND,
-                                               gtk.ICON_SIZE_MENU)
-        img_License.show()
-
         self.daemon.set_image(self.img_daemon)
         menu.append(self.daemon)
         self.daemon.show()
@@ -121,27 +118,23 @@ class GtkStatusIcon(object):
         menu_Check.set_image(img_Check)
         menu_Info.set_image(img_Info)
         menu_About.set_image(img_About)
-        menu_License.set_image(img_License)
         menu_Quit.set_image(img_Quit)
 
         menu.append(menu_Check)
         menu.append(menu_Info)
         menu.append(separator)
         menu.append(menu_About)
-        menu.append(menu_License)
         menu.append(menu_Quit)
 
         separator.show()
         menu_Check.show()
         menu_Info.show()
         menu_About.show()
-        menu_License.show()
         menu_Quit.show()
 
         menu_Check.connect_object("activate", self._Check, " ")
         menu_Info.connect_object("activate", self._Info, "Information")
         menu_About.connect_object("activate", self._About, "SUN")
-        menu_License.connect_object("activate", self._License, "Licence   ")
         self.start.connect_object("activate", self._start, "Start daemon   ")
         self.stop.connect_object("activate", self._stop, "Stop daemon   ")
         self.restart.connect_object("activate", self._restart,
@@ -184,17 +177,16 @@ class GtkStatusIcon(object):
 
     def _About(self, data):
         about = gtk.AboutDialog()
+        about.set_destroy_with_parent(True)
         about.set_program_name(data)
         about.set_version(__version__)
+        about.set_authors(["{0} <{1}>".format(__author__, __email__)])
+        about.set_license("\n".join(lic))
         about.set_comments(abt)
         about.set_website(__website__)
         about.set_logo(gtk.gdk.pixbuf_new_from_file(self.sun_icon))
         about.run()
         about.destroy()
-
-    def _License(self, data):
-        self.dialog_title = "SUN - " + data
-        self.message("\n".join(lic))
 
     def _start(self, data):
         self.dialog_title = "Daemon"
