@@ -24,23 +24,20 @@
 
 from __metadata__ import (
     __copyright__,
-    __email__
 )
 
 
 abt = ("SUN (Slackware Update Notifier)\n\n"
+       "Tray notification applet for informing "
+       "about package updates in Slackware.\n\n"
        "Copyright {0} © Dimitris Zlatanidis\n"
-       "Email: {1}\n"
        "Slackware® is a Registered Trademark of "
        "Slackware Linux, Inc.\n"
        "Linux is a Registered Trademark of Linus "
-       "Torvalds.".format(__copyright__, __email__))
+       "Torvalds.".format(__copyright__))
 
 
-lic = ["Sun is a tray notification applet for informing about package",
-       "updates in Slackware.",
-       "Copyright (C) 2015  dslackw\n",
-       "This program is free software: you can redistribute it and/or modify",
+lic = ["This program is free software: you can redistribute it and/or modify",
        "it under the terms of the GNU General Public License as published by",
        "the Free Software Foundation, either version 3 of the License, or",
        "(at your option) any later version.\n",

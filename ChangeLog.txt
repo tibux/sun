@@ -1,3 +1,8 @@
+15-04-2015
+Version 1.0.7
+
+[Updated] - Merge license to about.
+
 31-03-2015
 Version 1.0.6
 

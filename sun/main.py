@@ -22,6 +22,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+'''
+ ____  _   _ _   _ 
+/ ___|| | | | \ | |
+\___ \| | | |  \| |
+ ___) | |_| | |\  |
+|____/ \___/|_| \_|
+
+'''
+
 import time
 import urllib2
 import pynotify

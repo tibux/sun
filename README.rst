@@ -38,8 +38,8 @@ Installing
 
 .. code-block:: bash
 
-    $ tar xvf sun-1.0.6.tar.gz
-    $ cd slpkg-1.0.6
+    $ tar xvf sun-1.0.7.tar.gz
+    $ cd slpkg-1.0.7
     $ ./install.sh
 
     or
