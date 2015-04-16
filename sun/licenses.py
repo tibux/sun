@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# licenses.py is a path of sun.
+# licenses.py is a part of sun.
 
 # Copyright 2015 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
 # All rights reserved.

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# main.py is a path of sun.
+# main.py is a part of sun.
 
 # Copyright 2015 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
 # All rights reserved.
@@ -23,7 +23,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
- ____  _   _ _   _ 
+ ____  _   _ _   _
 / ___|| | | | \ | |
 \___ \| | | |  \| |
  ___) | |_| | |\  |
