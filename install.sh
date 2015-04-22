@@ -22,7 +22,7 @@
 
 
 grab_version() {
-# Grab version from __metadata_.py file
+# Grab version from __metadata__.py file
 cat sun/__metadata__.py | grep "__version_info__ = (" \
     | tr -d [[:space:]] | cut -c19-23 | tr , .
 }

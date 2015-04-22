@@ -93,16 +93,20 @@ def fetch():
     tar = urlopen(mirror())
     r = tar.read()
     count = 0
+    added = 0
     slackpkg_last_date = read_file("{0}{1}".format(
         var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
-    packages = []
+    upgraded = []
     for line in r.splitlines():
         if slackpkg_last_date == line.strip():
             break
         if line.endswith("Upgraded.") or line.endswith("Rebuilt."):
-            packages.append(line.split("/")[-1])
+            upgraded.append(line.split("/")[-1])
             count += 1
-    return [count, packages]
+        if line.endswith("Added."):
+            upgraded.append(line.split("/")[-1])
+            added += 1
+    return [count, added, upgraded]
 
 
 def config():

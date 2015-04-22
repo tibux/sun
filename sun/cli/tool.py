@@ -46,7 +46,7 @@ def usage():
     args = [
         "SUN (Slackware Update Notifier) - Version: {0}\n".format(__version__),
         "Usage: sun [OPTION]\n",
-        "Optional  arguments:",
+        "Optional arguments:",
         "  help           display this help and exit",
         "  start          start sun daemon",
         "  stop           stop sun daemon",
@@ -56,24 +56,26 @@ def usage():
         "  info           os information"
     ]
     for opt in args:
-        print opt
+        print("{0}".format(opt))
 
 
 def check_updates():
     """ check and display upgraded packages """
-    count, packages = fetch()
+    count, added, packages = fetch()
     message = "No news is good news !"
     if count > 0:
-        message = "{0} software updates are available !".format(count)
-    return [message, count, packages]
+        message = ("{0} software updates are available, \nand {1} have "
+                   "been added:\n".format(
+                       count, added))
+    return [message, count, packages, added]
 
 
 def daemon_status():
     """ display sun daemon status """
     out = commands.getoutput("ps -A")
-    message = "Sun not running"
+    message = "SUN not running"
     if "sun_daemon" in out:
-        message = "Sun is running..."
+        message = "SUN is running..."
     return message
 
 
@@ -91,19 +93,19 @@ def init():
         elif args[0] == "restart":
             subprocess.call("{0} {1}".format(cmd, "restart"), shell=True)
         elif args[0] == "check":
-            message, count, packages = check_updates()
-            if count > 0:
-                print message
+            message, count, packages, added = check_updates()
+            if count > 0 or added > 0:
+                print(message)
                 for pkg in packages:
-                    print pkg
+                    print("{0}".format(pkg))
             else:
-                print message
+                print(message)
         elif args[0] == "status":
-            print daemon_status()
+            print(daemon_status())
         elif args[0] == "help":
             usage()
         elif args[0] == "info":
-            print os_info()
+            print(os_info())
         else:
             print("try: 'sun help'")
     elif len(args) == 2 and args[0] == "start" and args[1] == "--gtk":

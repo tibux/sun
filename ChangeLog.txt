@@ -1,3 +1,13 @@
+23-04-2015
+Version 1.0.8
+
+[Feature] - Added counted new packages added.
+
+16-04-2015
+Version 1.0.71
+
+[Updated] - Fix license.
+
 15-04-2015
 Version 1.0.7
 

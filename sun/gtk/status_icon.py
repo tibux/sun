@@ -162,12 +162,12 @@ class GtkStatusIcon(object):
 
     def _Check(self, data):
         self.dialog_title = "SUN - Check updates"
-        msg, count, packages = check_updates()
+        msg, count, packages, added = check_updates()
         data = msg
-        if count > 0:
+        if count > 0 or added > 0:
             if len(packages) > 10:
                 packages = packages[:10] + ["and more..."]
-            self.message("{0} \n\n{1}".format(data, "\n".join(packages)))
+            self.message("{0} \n{1}".format(data, "\n".join(packages)))
         else:
             self.message(data)
 

@@ -38,8 +38,8 @@ Installing
 
 .. code-block:: bash
 
-    $ tar xvf sun-1.0.7.tar.gz
-    $ cd slpkg-1.0.7
+    $ tar xvf sun-<version>.tar.gz
+    $ cd sun-<version>
     $ ./install.sh
 
     or
@@ -100,11 +100,11 @@ CLI
 .. code-block:: bash
 
     $ sun help
-    SUN (Slackware Update Notifier) - Version: 1.0.7
+    SUN (Slackware Update Notifier) - Version: 1.0.8
 
     Usage: sun [OPTION]
 
-    Optional  arguments:
+    Optional arguments:
       help           display this help and exit
       start          start sun daemon
       stop           stop sun daemon
@@ -114,16 +114,18 @@ CLI
       info           os information
     
     $ sun start
-    Starting sun daemon:  /usr/bin/sun_daemon
+    Starting SUN daemon:  /usr/bin/sun_daemon
 
     $ sun stop
-    Stoping sun daemon:  /usr/bin/sun_daemon
+    Stoping SUN daemon:  /usr/bin/sun_daemon
 
     $ sun status
-    sun is not running
+    SUN is not running
     
     $ sun check
-    3 software updates are available !
+    3 software updates are available,
+    and 0 have been added:
+
     samba-4.1.17-x86_64-1_slack14.1.txz:  Upgraded.
     mozilla-firefox-31.5.0esr-x86_64-1_slack14.1.txz:  Upgraded.
     mozilla-thunderbird-31.5.0-x86_64-1_slack14.1.txz:  Upgraded.
