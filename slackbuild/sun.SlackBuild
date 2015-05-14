@@ -91,7 +91,7 @@ install -D -m0644 icon/${PRGNAM}.png $PKG/usr/share/pixmaps/${PRGNAM}.png
 install -D -m0644 ${PRGNAM}.desktop $PKG/usr/share/applications/${PRGNAM}.desktop
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a README.rst ChangeLog.txt LICENSE i3-wm.txt $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a README.rst ChangeLog.txt LICENSE i3-WM $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
