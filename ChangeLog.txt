@@ -1,7 +1,9 @@
-15-04-2015
+15-05-2015
 Version 1.0.9
 
-[Updated] - Fix messages and added status icon.
+[Updated] - Fix messages and added status icon message.
+		  - Update CLI tool.
+		  - Added user name in info.
 
 23-04-2015
 Version 1.0.8
