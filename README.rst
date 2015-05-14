@@ -73,14 +73,14 @@ CLI
     Usage: sun [OPTION]
 
     Optional arguments:
-      help           display this help and exit
-      start          start sun daemon
-      stop           stop sun daemon
-      restart        restart sun daemon
-      check          check for software updates
-      status         sun daemon status
-      info           os information
-    
+      help     display this help and exit
+      start    start sun daemon
+      stop     stop sun daemon
+      restart  restart sun daemon
+      check    check for software updates
+      status   sun daemon status
+      info     os information
+
     $ sun start
     Starting SUN daemon:  /usr/bin/sun_daemon
 
