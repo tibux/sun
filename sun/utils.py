@@ -24,6 +24,7 @@
 
 import os
 import re
+import getpass
 import urllib2
 from __metadata__ import (
     arch,
@@ -129,11 +130,13 @@ def os_info():
     stype = "Stable"
     if "current" in mirror():
         stype = "Current"
-    info = ("OS: {0}\n"
-            "Version: {1}\n"
-            "Type: {2}\n"
-            "Arch: {3}\n"
-            "Kernel: {4}\n"
-            "Packages: {5}".format(slack, ver, stype, os.uname()[4],
-                                   os.uname()[2], ins_packages()))
+    info = (
+        "User: {0}\n"
+        "OS: {1}\n"
+        "Version: {2}\n"
+        "Type: {3}\n"
+        "Arch: {4}\n"
+        "Kernel: {5}\n"
+        "Packages: {6}".format(getpass.getuser(), slack, ver, stype,
+                               os.uname()[4], os.uname()[2], ins_packages()))
     return info

@@ -31,7 +31,7 @@ package updates in Slackware and CLI tool for monitoring upgraded packages.
 How works
 ---------
 Actually read the two dates of ChangeLog.txt files one the server and a local by counting
-how many packages have been upgraded and rebuilt.
+how many packages have been upgraded, rebuilt or added.
  
 Installing
 ----------
@@ -61,38 +61,6 @@ Usage
     Command: /usr/bin/sun start --gtk
     [Ok]
 
-i3 wm
------
-Example my_i3status.sh for i3 wm.
-Put that in some script, say .bin/my_i3status.sh and execute that instead 
-of `i3status <http://i3wm.org/i3status/manpage.html#_external_scripts_programs_with_i3status>`_
-
-.. code-block:: bash
-
-    #!/bin/bash
-    i3status | while :
-    do
-    read line
-    # get number of packages it have upgraded
-    # fetch()[0] number of upgraded packages
-    # fetch()[1] list of upgraded packages
-    num="$(python -c 'from sun.utils import fetch; print fetch()[0]')"
-    # check if upgraded
-    if (($num > 0)); then
-        msg="$num software updates are available"
-    else
-        msg="No news is good news"
-    fi
-    # print message
-    echo "SUN: $msg | $line" || exit 1
-    done
-
-    and add my_i3status.sh in ~/.i3/config:
-    ~/.i3/config
-    bar {
-            status_command my_i3status.sh
-    }
-
     
 CLI
 ---
@@ -100,7 +68,7 @@ CLI
 .. code-block:: bash
 
     $ sun help
-    SUN (Slackware Update Notifier) - Version: 1.0.8
+    SUN (Slackware Update Notifier) - Version: 1.0.9
 
     Usage: sun [OPTION]
 
@@ -123,8 +91,7 @@ CLI
     SUN is not running
     
     $ sun check
-    3 software updates are available,
-    and 0 have been added:
+    3 software updates are available
 
     samba-4.1.17-x86_64-1_slack14.1.txz:  Upgraded.
     mozilla-firefox-31.5.0esr-x86_64-1_slack14.1.txz:  Upgraded.

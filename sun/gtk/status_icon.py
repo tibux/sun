@@ -57,6 +57,7 @@ class GtkStatusIcon(object):
         self.icon.connect('popup-menu', self.right_click)
         self.img = gtk.Image()
         self.img.set_from_file(self.sun_icon)
+        self.icon.set_tooltip("SUN - Slackware Update Notifier")
         self.cmd = "/etc/rc.d/rc.sun"
         gtk.main()
 

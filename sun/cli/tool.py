@@ -47,13 +47,13 @@ def usage():
         "SUN (Slackware Update Notifier) - Version: {0}\n".format(__version__),
         "Usage: sun [OPTION]\n",
         "Optional arguments:",
-        "  help           display this help and exit",
-        "  start          start sun daemon",
-        "  stop           stop sun daemon",
-        "  restart        restart sun daemon",
-        "  check          check for software updates",
-        "  status         sun daemon status",
-        "  info           os information"
+        "  help     display this help and exit",
+        "  start    start sun daemon",
+        "  stop     stop sun daemon",
+        "  restart  restart sun daemon",
+        "  check    check for software updates",
+        "  status   sun daemon status",
+        "  info     os information"
     ]
     for opt in args:
         print("{0}".format(opt))
@@ -63,10 +63,8 @@ def check_updates():
     """ check and display upgraded packages """
     count, added, packages = fetch()
     message = "No news is good news !"
-    if count > 0:
-        message = ("{0} software updates are available, \nand {1} have "
-                   "been added:\n".format(
-                       count, added))
+    if count > 0 or added > 0:
+        message = ("{0} software updates are available\n".format(count + added))
     return [message, count, packages, added]
 
 
