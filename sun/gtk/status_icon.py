@@ -120,7 +120,7 @@ class GtkStatusIcon(object):
                                              gtk.ICON_SIZE_MENU)
         img_Check.show()
 
-        menu_Info = gtk.ImageMenuItem("Information")
+        menu_Info = gtk.ImageMenuItem("OS Info")
         img_Info = gtk.image_new_from_stock(gtk.STOCK_INFO,
                                             gtk.ICON_SIZE_MENU)
         img_Info.show()
@@ -156,7 +156,7 @@ class GtkStatusIcon(object):
         menu_Quit.show()
 
         menu_Check.connect_object("activate", self._Check, " ")
-        menu_Info.connect_object("activate", self._Info, "Information")
+        menu_Info.connect_object("activate", self._Info, "OS Info")
         menu_About.connect_object("activate", self._About, "SUN")
         self.start.connect_object("activate", self._start, "Start daemon   ")
         self.stop.connect_object("activate", self._stop, "Stop daemon   ")
