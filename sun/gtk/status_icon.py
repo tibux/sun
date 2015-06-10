@@ -116,7 +116,7 @@ class GtkStatusIcon(object):
         separator = gtk.SeparatorMenuItem()
 
         menu_Check = gtk.ImageMenuItem("Check updates")
-        img_Check = gtk.image_new_from_stock(gtk.STOCK_APPLY,
+        img_Check = gtk.image_new_from_stock(gtk.STOCK_OK,
                                              gtk.ICON_SIZE_MENU)
         img_Check.show()
 
