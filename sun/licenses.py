@@ -32,7 +32,7 @@ abt = ("SUN (Slackware Update Notifier)\n\n"
        "about package updates in Slackware.\n\n"
        "Copyright {0} © Dimitris Zlatanidis\n"
        "Slackware® is a Registered Trademark of "
-       "Slackware Linux, Inc.\n"
+       "Patrick Volkerding.\n"
        "Linux is a Registered Trademark of Linus "
        "Torvalds.".format(__copyright__))
 
