@@ -69,7 +69,6 @@ if "install" in sys.argv:
     for d in dirs:
         if not os.path.exists(d):
             os.makedirs(d)
-
     print("Install sun.conf --> {0}".format(conf_path))
     shutil.copy2("conf/{0}.conf".format(__all__), conf_path)
     print("Install mirrors --> {0}".format(conf_path))
