@@ -37,7 +37,8 @@ from __metadata__ import (
 
 
 def urlopen(link):
-    """ Return urllib2 urlopen """
+    """Return urllib2 urlopen
+    """
     try:
         return urllib2.urlopen(link)
     except urllib2.URLError:
@@ -45,7 +46,8 @@ def urlopen(link):
 
 
 def read_file(registry):
-    """ Return reading file """
+    """Return reading file
+    """
     with open(registry, "r") as file_txt:
         read_file = file_txt.read()
         file_txt.close()
@@ -53,13 +55,15 @@ def read_file(registry):
 
 
 def slack_ver():
-    """ Open file and read Slackware version """
+    """Open file and read Slackware version
+    """
     sv = read_file("/etc/slackware-version")
     return sv.split()[0], (".".join(re.findall(r"\d+", sv)))
 
 
 def ins_packages():
-    """ Count installed Slackware packages """
+    """Count installed Slackware packages
+    """
     count = 0
     for pkg in os.listdir(pkg_path):
         if not pkg.startswith("."):
@@ -68,15 +72,17 @@ def ins_packages():
 
 
 def read_config(config):
-    """ Read config file and return uncomment line """
+    """Read config file and return uncomment line
+    """
     for line in config.splitlines():
         line = line.lstrip()
-        if line and not line.startswith('#'):
+        if line and not line.startswith("#"):
             return line
 
 
 def mirror():
-    """ Grab Slackware ChangeLog.txt mirror """
+    """Grab Slackware ChangeLog.txt mirror
+    """
     slackpkg_mirror = read_config(read_file("{0}{1}".format(etc_slackpkg,
                                                             "mirrors")))
     slackware_mirror = read_config(read_file("{0}{1}".format(conf_path,
@@ -90,28 +96,27 @@ def mirror():
 
 
 def fetch():
-    """ Get ChangeLog.txt file size and count upgraded packages"""
+    """Get ChangeLog.txt file size and count upgraded packages
+    """
     tar = urlopen(mirror())
     r = tar.read()
     count = 0
-    added = 0
     slackpkg_last_date = read_file("{0}{1}".format(
         var_lib_slackpkg, changelog_txt)).split("\n", 1)[0].strip()
     upgraded = []
     for line in r.splitlines():
         if slackpkg_last_date == line.strip():
             break
-        if line.endswith("Upgraded.") or line.endswith("Rebuilt."):
+        if (line.endswith("Upgraded.") or line.endswith("Rebuilt.") or
+                line.endswith("Added.")):
             upgraded.append(line.split("/")[-1])
             count += 1
-        if line.endswith("Added."):
-            upgraded.append(line.split("/")[-1])
-            added += 1
-    return [count, added, upgraded]
+    return [count, upgraded]
 
 
 def config():
-    """ Reaturn sun configuration values """
+    """Reaturn sun configuration values
+    """
     conf_args = {
         "INTERVAL": 60,
         "STANDBY": 3
@@ -119,13 +124,14 @@ def config():
     config_file = read_file("{0}{1}".format(conf_path, "sun.conf"))
     for line in config_file.splitlines():
         line = line.lstrip()
-        if line and not line.startswith('#'):
-            conf_args[line.split('=')[0]] = line.split('=')[1]
+        if line and not line.startswith("#"):
+            conf_args[line.split("=")[0]] = line.split("=")[1]
     return conf_args
 
 
 def os_info():
-    """ Get OS info """
+    """Get OS info
+    """
     slack, ver = slack_ver()
     stype = "Stable"
     if "current" in mirror():

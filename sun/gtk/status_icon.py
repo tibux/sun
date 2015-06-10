@@ -24,7 +24,7 @@
 
 
 import pygtk
-pygtk.require('2.0')
+pygtk.require("2.0")
 import gtk
 import subprocess
 from sun.licenses import (
@@ -54,10 +54,10 @@ class GtkStatusIcon(object):
         self.daemon_STOCK = gtk.STOCK_YES
         self.sun_icon = "{0}{1}.png".format(icon_path, __all__)
         self.icon = gtk.status_icon_new_from_file(self.sun_icon)
-        self.icon.connect('popup-menu', self.right_click)
+        self.icon.connect("popup-menu", self.right_click)
         self.img = gtk.Image()
         self.img.set_from_file(self.sun_icon)
-        self.icon.set_tooltip("SUN - Slackware Update Notifier")
+        self.icon.set_tooltip("Slackware Update Notifier")
         self.cmd = "/etc/rc.d/rc.sun"
         gtk.main()
 
@@ -163,9 +163,9 @@ class GtkStatusIcon(object):
 
     def _Check(self, data):
         self.dialog_title = "SUN - Check updates"
-        msg, count, packages, added = check_updates()
+        msg, count, packages = check_updates()
         data = msg
-        if count > 0 or added > 0:
+        if count > 0:
             if len(packages) > 10:
                 packages = packages[:10] + ["and more..."]
             self.message("{0} \n{1}".format(data, "\n".join(packages)))
@@ -220,5 +220,5 @@ def main():
 
     GtkStatusIcon()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

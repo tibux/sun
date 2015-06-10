@@ -22,14 +22,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-'''
+"""
  ____  _   _ _   _
 / ___|| | | | \ | |
 \___ \| | | |  \| |
  ___) | |_| | |\  |
 |____/ \___/|_| \_|
 
-'''
+"""
 
 import time
 import urllib2
@@ -46,21 +46,24 @@ from __metadata__ import (
 
 
 class Notify(object):
-
+    """Main notify Class
+    """
     def __init__(self):
         pynotify.uninit()
         pynotify.init("sun")
-        self.pkg_count, self.pkg_added = fetch()[:2]
+        self.pkg_count = fetch()[0]
         self.message_added = ""
         self.summary = "{0}Software Updates".format(" " * 14)
         self.message = ("{0}{1} Software updates are available\n".format(
-            " " * 3, self.pkg_count + self.pkg_added))
+            " " * 3, self.pkg_count))
         self.icon = "{0}{1}.png".format(icon_path, __all__)
         self.n = pynotify.Notification(self.summary, self.message, self.icon)
-        self.n.set_timeout(60000 * int(config()['STANDBY']))
+        self.n.set_timeout(60000 * int(config()["STANDBY"]))
 
     def show(self):
-        if self.pkg_count > 0 or self.pkg_added > 0:
+        """Startup dbus message if packages
+        """
+        if self.pkg_count > 0:
             self.n.show()     # start daemon
 
 
@@ -75,7 +78,7 @@ def main():
             connection = False
         if connection:
             Notify().show()
-            time.sleep(60 * int(config()['INTERVAL']))
+            time.sleep(60 * int(config()["INTERVAL"]))
 
 if __name__ == "__main__":
     main()

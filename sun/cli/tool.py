@@ -35,14 +35,16 @@ from sun.__metadata__ import __version__
 
 
 def su():
-    """ display message when sun execute as root """
+    """Display message when sun execute as root
+    """
     if getpass.getuser() == "root":
         print("sun: Message: running as root ...")
         time.sleep(2)
 
 
 def usage():
-    """ sun arguments """
+    """SUN arguments
+    """
     args = [
         "SUN (Slackware Update Notifier) - Version: {0}\n".format(__version__),
         "Usage: sun [OPTION]\n",
@@ -60,16 +62,18 @@ def usage():
 
 
 def check_updates():
-    """ check and display upgraded packages """
-    count, added, packages = fetch()
+    """Check and display upgraded packages
+    """
+    count, packages = fetch()
     message = "No news is good news !"
-    if count > 0 or added > 0:
-        message = ("{0} software updates are available\n".format(count + added))
-    return [message, count, packages, added]
+    if count > 0:
+        message = ("{0} software updates are available\n".format(count))
+    return [message, count, packages]
 
 
 def daemon_status():
-    """ display sun daemon status """
+    """Display sun daemon status
+    """
     out = commands.getoutput("ps -A")
     message = "SUN not running"
     if "sun_daemon" in out:
@@ -78,7 +82,8 @@ def daemon_status():
 
 
 def init():
-    """ Initialization , all begin from here """
+    """Initialization , all begin from here
+    """
     su()
     args = sys.argv
     args.pop(0)
@@ -91,8 +96,8 @@ def init():
         elif args[0] == "restart":
             subprocess.call("{0} {1}".format(cmd, "restart"), shell=True)
         elif args[0] == "check":
-            message, count, packages, added = check_updates()
-            if count > 0 or added > 0:
+            message, count, packages = check_updates()
+            if count > 0:
                 print(message)
                 for pkg in packages:
                     print("{0}".format(pkg))
