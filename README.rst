@@ -68,7 +68,7 @@ CLI
 .. code-block:: bash
 
     $ sun help
-    SUN (Slackware Update Notifier) - Version: 1.0.9
+    SUN (Slackware Update Notifier) - Version: 1.1.0
 
     Usage: sun [OPTION]
 

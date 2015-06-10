@@ -1,3 +1,11 @@
+10-06-2015
+Version 1.1.0
+
+[Updated] - Add preserve_perms to doinst.sh. Thanks to Thibaut Notteboom.
+	      - Doc strings.
+		  - Tooltip message.
+		  - Merge added packages in count.
+
 15-05-2015
 Version 1.0.9
 
@@ -35,7 +43,6 @@ Version 1.0.5
 Version 1.0.4
 
 [Updated] - Added information, license and update gtk.MessageBox.
-
 
 14-03-2015
 Version 1.0.3
