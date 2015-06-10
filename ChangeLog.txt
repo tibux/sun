@@ -2,7 +2,8 @@
 Version 1.1.0
 
 [Updated] - Add preserve_perms to doinst.sh. Thanks to Thibaut Notteboom.
-	      - Doc strings.
+	      - Add submenu gtk icons.
+		  - Doc strings.
 		  - Tooltip message.
 		  - Merge added packages in count.
 
