@@ -83,7 +83,7 @@ install -D -m0644 conf/${PRGNAM}.conf $PKG/etc/$PRGNAM/${PRGNAM}.conf.new
 install -D -m0644 conf/mirrors $PKG/etc/$PRGNAM/mirrors
 
 # install rc file
-install -D -m0755 conf/rc.${PRGNAM} $PKG/etc/rc.d/rc.${PRGNAM}
+install -D -m0755 conf/rc.${PRGNAM} $PKG/etc/rc.d/rc.${PRGNAM}.new
 
 # install notify icon and .desktop file
 mkdir -p $PKG/usr/share/pixmaps $PKG/usr/share/applications
